@@ -1,0 +1,184 @@
+package org.brunocunha.inutils4j;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+
+public class MyFileUtils {
+
+	public static void copyFile(File f1, File f2) throws IOException {
+		if (!f2.getParentFile().exists()) {
+			f2.getParentFile().mkdirs();
+		}
+
+		InputStream in = null;
+		OutputStream out = null;
+
+		try {
+			in = new FileInputStream(f1);
+
+			out = new FileOutputStream(f2);
+
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = in.read(buf)) > 0) {
+				out.write(buf, 0, len);
+			}
+
+		} catch (IOException ex) {
+			throw ex;
+		} finally {
+			try {
+				in.close();
+			} catch (IOException ex) {
+			}
+
+			try {
+				out.close();
+			} catch (IOException ex) {
+			}
+
+			if (f2.exists()) {
+				f2.setLastModified(f1.lastModified());
+			}
+		}
+	}
+
+	// http://www.mkyong.com/java/how-to-delete-directory-in-java/
+	public static void delete(File file) throws IOException {
+
+		if (file.isDirectory()) {
+
+			// directory is empty, then delete it
+			if (file.list().length == 0) {
+				file.delete();
+			} else {
+
+				// list all the directory contents
+				String files[] = file.list();
+
+				for (String temp : files) {
+					// construct the file structure
+					File fileDelete = new File(file, temp);
+
+					// recursive delete
+					delete(fileDelete);
+				}
+
+				// check the directory again, if empty then delete it
+				if (file.list().length == 0) {
+					file.delete();
+				}
+			}
+
+		} else {
+			// if file, then delete it
+			file.delete();
+		}
+	}
+
+	public static void deleteChildren(File file) throws IOException {
+
+		if (file.isDirectory()) {
+			// list all the directory contents
+			String files[] = file.list();
+
+			for (String temp : files) {
+				// construct the file structure
+				File fileDelete = new File(file, temp);
+
+				// recursive delete
+				delete(fileDelete);
+			}
+
+		}
+	}
+	
+	public static void deleteEmptyChildren(File dir) {
+		if (dir == null
+				|| !dir.exists()) {
+			return;
+		}
+		
+		for (File son : dir.listFiles()) {
+			if (son.isDirectory()) {
+				if (son.listFiles().length == 0) {
+					System.out.println("Deleting " + son.getAbsolutePath());
+					son.delete();
+				} else {
+					deleteEmptyChildren(son);
+				}
+			}
+		}
+	}
+	
+	
+	public static void scanFile(final List<File> lista, final File arquivo) {
+		scanFile(lista, arquivo, -1);
+	}
+	
+	public static void scanFile(final List<File> lista, final File arquivo, int stopAfter) {
+		if (stopAfter > 0 
+				&& lista.size() > stopAfter) {
+			return;
+		}
+		
+		try {
+			if (arquivo.isDirectory()) {
+				System.out.println("Scan " + arquivo.getName());
+
+				for (final File arquivoFilho : arquivo.listFiles()) {
+					
+					if (arquivoFilho.isDirectory()) {
+						scanFile(lista, arquivoFilho, stopAfter);
+					} else {
+						lista.add(arquivoFilho);
+					}
+					
+					
+					if (stopAfter > 0 
+							&& lista.size() > stopAfter) {
+						return;
+					}
+					
+				}
+
+			} else {
+				// System.out.println(arquivo.getAbsolutePath());
+
+				if (arquivo != null) {
+					lista.add(arquivo);
+					
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Error fetching file -->  " + arquivo.getAbsolutePath() + " [" + e.getMessage() + "]");
+			e.printStackTrace();
+		}
+	}
+
+	public static void scanFile(final List<File> lista, final File arquivo, final FileFilter filter) {
+
+		try {
+			if (arquivo.isDirectory()) {
+				for (final File arquivoFilho : arquivo.listFiles(filter)) {
+					scanFile(lista, arquivoFilho, filter);
+				}
+
+			} else {
+				// System.out.println(arquivo.getAbsolutePath());
+
+				if (arquivo != null) {
+					lista.add(arquivo);
+				}
+			}
+		} catch (Exception e) {
+
+		}
+	}
+}
