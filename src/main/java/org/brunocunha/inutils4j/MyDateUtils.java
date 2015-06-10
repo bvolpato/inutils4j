@@ -5,12 +5,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.log4j.Logger;
+
 public class MyDateUtils {
 
+	private static Logger log = Logger.getLogger(MyDateUtils.class);
+	
 	public static Long SECOND_MILLIS = 1000L;
 	public static Long MINUTE_MILLIS = 60 * SECOND_MILLIS;
 	public static Long HOUR_MILLIS = 60 * MINUTE_MILLIS;
 	public static Long DAY_MILLIS = 24 * HOUR_MILLIS;
+	public static Long YEAR_MILLIS = 365 * DAY_MILLIS;
+	public static Long WEEK_MILLIS = 7 * DAY_MILLIS;
+	public static Long MONTH_MILLIS = 30 * DAY_MILLIS;
 	
 	public static Date dataStringToDate(String data) {
         Date date = null;
@@ -99,6 +106,61 @@ public class MyDateUtils {
         }
 
         return ret;
+    }
+    
+    public static Date calculateAgo(Date date, String agoString) {
+    	log.debug("Calculating ago for " + agoString);
+    	if (agoString.startsWith("<")) {
+    		agoString = agoString.substring(1).trim();
+    	}
+    	
+    	if (agoString.equalsIgnoreCase("today")) {
+    		return date;
+    	}
+    	
+    	if (agoString.equalsIgnoreCase("yesterday")) {
+    		return new Date(date.getTime() - DAY_MILLIS);
+    	}
+    	
+    	String[] parse = agoString.split("\\s+");
+    	int quantity = Integer.valueOf(parse[0]);
+    	
+    	if (parse[1].equalsIgnoreCase("second")
+    			|| parse[1].equalsIgnoreCase("seconds")) {
+    		return new Date(date.getTime() - (quantity * SECOND_MILLIS));
+    	}
+	    		
+    	if (parse[1].equalsIgnoreCase("minute")
+    			|| parse[1].equalsIgnoreCase("minutes")) {
+    		return new Date(date.getTime() - (quantity * MINUTE_MILLIS));
+    	}
+    	
+    	if (parse[1].equalsIgnoreCase("hour")
+    			|| parse[1].equalsIgnoreCase("hours")) {
+    		return new Date(date.getTime() - (quantity * HOUR_MILLIS));
+    	}
+	    		
+    	if (parse[1].equalsIgnoreCase("day")
+    			|| parse[1].equalsIgnoreCase("days")) {
+    		return new Date(date.getTime() - (quantity * DAY_MILLIS));
+    	}
+	    		
+    	if (parse[1].equalsIgnoreCase("week")
+    			|| parse[1].equalsIgnoreCase("weeks")) {
+    		return new Date(date.getTime() - (quantity * WEEK_MILLIS));
+    	}
+	    		
+    	if (parse[1].equalsIgnoreCase("month")
+    			|| parse[1].equalsIgnoreCase("months")) {
+    		return new Date(date.getTime() - (quantity * MONTH_MILLIS));
+    	}
+	    		
+    	if (parse[1].equalsIgnoreCase("year")
+    			|| parse[1].equalsIgnoreCase("years")) {
+    		return new Date(date.getTime() - (quantity * YEAR_MILLIS));
+    	}
+	    		
+    	throw new IllegalArgumentException("Invalid ago term: " + agoString);
     }
     
     public static String getTimestamp() {
