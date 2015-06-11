@@ -41,7 +41,7 @@ import javax.swing.JFileChooser;
 import org.apache.commons.codec.binary.Hex;
 
 /**
- * Utilidades para trabalhar com Strings.
+ * String (In)utilities.
  * 
  * @author Bruno Candido Volpato da Cunha
  */
@@ -50,16 +50,16 @@ public class MyStringUtils {
 	public static final int CREATE = 0;
 	public static final int APPEND = 1;
 	public static final int FILL = 2;
-	private static final NumberFormat _ffmt = NumberFormat.getInstance();
-	private static final String XLATE = "0123456789abcdef";
-	private static final String RETURN = "\n";
-	private static final String CARRIAGE = "\r";
-	private static final String CARRIAGE_RETURN = "\r\n";
-	private static String lineSeparator;
+	public static final NumberFormat _ffmt = NumberFormat.getInstance();
+	public static final String XLATE = "0123456789abcdef";
+	public static final String RETURN = "\n";
+	public static final String CARRIAGE = "\r";
+	public static final String CARRIAGE_RETURN = "\r\n";
+	public static String lineSeparator;
 
-	private static Pattern HAS_LETTER_PATTERN = Pattern.compile("[a-zA-Z]");
+	public static Pattern HAS_LETTER_PATTERN = Pattern.compile("[a-zA-Z]");
 	
-	private static Pattern EMAIL_PATTERN = Pattern
+	public static Pattern EMAIL_PATTERN = Pattern
 			.compile("[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})");
 	
 	static {
@@ -446,41 +446,12 @@ public class MyStringUtils {
 			InputStream in;
 			try {
 				in = new BufferedInputStream(new FileInputStream(file));
-				return streamHasText(in, text);
+				return MyStreamUtils.streamHasText(in, text);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 
 		}
-		return false;
-	}
-
-	public static boolean streamHasText(InputStream in, String text) {
-		final byte[] readBuffer = new byte[8192];
-
-		StringBuffer sb = new StringBuffer();
-		try {
-			if (in.available() > 0) {
-				int bytesRead = 0;
-				while ((bytesRead = in.read(readBuffer)) != -1) {
-					sb.append(new String(readBuffer, 0, bytesRead));
-
-					if (sb.toString().contains(text)) {
-						sb = null;
-						return true;
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				in.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 		return false;
 	}
 
@@ -597,7 +568,7 @@ public class MyStringUtils {
 	public static byte[] getUrlContentBytes(String stringUrl) {
 		try {
 			URL url = new URL(stringUrl);
-			return readContentBytes(url.openStream());
+			return MyStreamUtils.readContentBytes(url.openStream());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -608,7 +579,7 @@ public class MyStringUtils {
 	public static String getContent(String stringUrl) {
 		try {
 			URL url = new URL(stringUrl);
-			return readContent(url.openStream());
+			return MyStreamUtils.readContent(url.openStream());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -616,43 +587,6 @@ public class MyStringUtils {
 		return null;
 	}
 
-	public static String readContent(InputStream is) {
-		String retorno = "";
-		try {
-			String linha;
-			BufferedReader in = new BufferedReader(new InputStreamReader(is));
-			StringBuffer out = new StringBuffer();
-
-			while ((linha = in.readLine()) != null) {
-				out.append(linha).append(CARRIAGE_RETURN);
-			}
-			retorno = out.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return retorno;
-	}
-
-	public static byte[] readContentBytes(InputStream ios) throws IOException {
-		ByteArrayOutputStream ous = null;
-		try {
-			byte[] buffer = new byte[4096];
-			ous = new ByteArrayOutputStream();
-			int read = 0;
-			while ((read = ios.read(buffer)) != -1) {
-				ous.write(buffer, 0, read);
-			}
-		} finally {
-			try {
-				if (ous != null)
-					ous.close();
-			} catch (IOException e) {
-			}
-
-		}
-		return ous.toByteArray();
-	}
 
 	
 	@Deprecated
