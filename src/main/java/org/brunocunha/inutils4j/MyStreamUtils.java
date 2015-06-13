@@ -15,6 +15,11 @@ public class MyStreamUtils {
 
 	public static final String CARRIAGE_RETURN = "\r\n";
 
+	/**
+	 * Gets string content from InputStream
+	 * @param is
+	 * @return
+	 */
 	public static String readContent(InputStream is) {
 		String retorno = "";
 		try {
@@ -33,26 +38,34 @@ public class MyStreamUtils {
 		return retorno;
 	}
 
-	public static byte[] readContentBytes(InputStream ios) throws IOException {
-		ByteArrayOutputStream ous = null;
-		try {
-			byte[] buffer = new byte[4096];
-			ous = new ByteArrayOutputStream();
-			int read = 0;
-			while ((read = ios.read(buffer)) != -1) {
-				ous.write(buffer, 0, read);
-			}
-		} finally {
-			try {
-				if (ous != null)
-					ous.close();
-			} catch (IOException e) {
-			}
+	/**
+	 * Converts an input stream to byte array
+	 * 
+	 * @param is
+	 * @return
+	 * @throws IOException
+	 */
+	public static byte[] readContentBytes(InputStream is) throws IOException {
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
+		int nRead;
+		byte[] data = new byte[16384];
+
+		while ((nRead = is.read(data, 0, data.length)) != -1) {
+			buffer.write(data, 0, nRead);
 		}
-		return ous.toByteArray();
+
+		buffer.flush();
+
+		return buffer.toByteArray();
 	}
 
+	/**
+	 * Checks if the InputStream have the text
+	 * @param in
+	 * @param text
+	 * @return
+	 */
 	public static boolean streamHasText(InputStream in, String text) {
 		final byte[] readBuffer = new byte[8192];
 
@@ -82,6 +95,4 @@ public class MyStreamUtils {
 		return false;
 	}
 
-	
-	
 }
