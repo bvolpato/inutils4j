@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.swing.JFileChooser;
+
 public class MyFileUtils {
 
 	public static void copyFile(File f1, File f2) throws IOException {
@@ -181,4 +183,45 @@ public class MyFileUtils {
 
 		}
 	}
+	
+
+    public static File chooseFileOpen(File dir, String title) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(dir);
+        chooser.setDialogTitle(title);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setDialogType(JFileChooser.OPEN_DIALOG);
+
+        int save = chooser.showSaveDialog(null);
+        File saveTo = chooser.getSelectedFile();
+
+        return saveTo;
+    }
+
+    public static File chooseFileSave(File dir, String title) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(dir);
+        chooser.setDialogTitle(title);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+
+        int save = chooser.showSaveDialog(null);
+        File saveTo = chooser.getSelectedFile();
+
+        return saveTo;
+    }
+
+    public static File chooseDirOpen(File dir, String title) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(dir);
+        chooser.setDialogTitle(title);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setDialogType(JFileChooser.OPEN_DIALOG);
+
+        int save = chooser.showSaveDialog(null);
+        File saveTo = chooser.getSelectedFile();
+
+        return saveTo;
+    }
+
 }
