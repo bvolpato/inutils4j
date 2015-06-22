@@ -7,7 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
 
@@ -224,4 +226,11 @@ public class MyFileUtils {
         return saveTo;
     }
 
+    public static void sortLines(File file) throws IOException {
+        Collection<String> lines = MyStringUtils.getContentListSplit(file, "\r?\n");
+
+        Set<String> sort = MyStringUtils.fixList(FixType.ALPHABETICALDELETEREPEATED, lines);
+        MyStringUtils.saveToFile(0, sort, file.getAbsolutePath());
+    }
+    
 }
