@@ -120,7 +120,7 @@ public class DateUtils {
      * Roll the java.util.Time forward or backward.
      *
      * @param startDate - The start date
-     * @period Calendar.YEAR etc
+     * @param period Calendar.YEAR etc
      * @param amount - Negative to rollbackwards.
      */
     public static java.sql.Time rollTime(java.util.Date startDate, int period, int amount) {
@@ -134,7 +134,7 @@ public class DateUtils {
      * Roll the java.util.Date forward or backward.
      *
      * @param startDate - The start date
-     * @period Calendar.YEAR etc
+     * @param period Calendar.YEAR etc
      * @param amount - Negative to rollbackwards.
      */
     public static java.util.Date rollDateTime(java.util.Date startDate, int period, int amount) {
@@ -148,7 +148,7 @@ public class DateUtils {
      * Roll the java.sql.Date forward or backward.
      *
      * @param startDate - The start date
-     * @period Calendar.YEAR etc
+     * @param period Calendar.YEAR etc
      * @param amount - Negative to rollbackwards.
      */
     public static java.sql.Date rollDate(java.util.Date startDate, int period, int amount) {
