@@ -1310,7 +1310,7 @@ public class MyStringUtils {
 		}
 	}
 
-	/** Removed - use https://github.com/rrice/java-string-similarity
+	/* Removed - use https://github.com/rrice/java-string-similarity
 	public static double similarScore(String str1, String str2) {
 		SimilarityStrategy strategy = new JaroWinklerStrategy();
 		StringSimilarityService service = new StringSimilarityServiceImpl(
@@ -1345,7 +1345,7 @@ public class MyStringUtils {
 		return new String[] { mostSimilar.getName(), String.valueOf(similarity) };
 	}
 	
-	**/
+	*/
 
 	public static String trimClean(String text) {
 
