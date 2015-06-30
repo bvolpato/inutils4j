@@ -1,7 +1,7 @@
 package org.brunocunha.inutils4j;
 
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +31,8 @@ public class MyHTTPUtils {
 	public static Map<String, List<String>> getResponseHeaders(String stringUrl, boolean followRedirects) {
 		try {
 			URL url = new URL(stringUrl);
-			URLConnection conn = url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setInstanceFollowRedirects(followRedirects);
 			return conn.getHeaderFields();
 		} catch (Exception e) {
 			e.printStackTrace();
