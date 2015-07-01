@@ -1,4 +1,4 @@
-﻿package org.brunocunha.inutils4j.tests;
+package org.brunocunha.inutils4j.tests;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
