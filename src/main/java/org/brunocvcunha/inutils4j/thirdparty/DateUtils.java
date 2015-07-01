@@ -1,4 +1,4 @@
-package org.brunocunha.inutils4j.thirdparty;
+package org.brunocvcunha.inutils4j.thirdparty;
 
 /*
  * Copyright Javelin Software, All rights reserved.

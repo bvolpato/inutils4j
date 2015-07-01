@@ -1,8 +1,8 @@
-package org.brunocunha.inutils4j.tests;
+package org.brunocvcunha.inutils4j.tests;
 
 import static org.junit.Assert.assertTrue;
 
-import org.brunocunha.inutils4j.MyNumberUtils;
+import org.brunocvcunha.inutils4j.MyNumberUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

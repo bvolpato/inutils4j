@@ -1,4 +1,4 @@
-package org.brunocunha.inutils4j;
+package org.brunocvcunha.inutils4j;
 
 public enum FixType {
 

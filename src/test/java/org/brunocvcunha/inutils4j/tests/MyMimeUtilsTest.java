@@ -1,4 +1,4 @@
-package org.brunocunha.inutils4j.tests;
+package org.brunocvcunha.inutils4j.tests;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.brunocunha.inutils4j.MyMimeUtils;
+import org.brunocvcunha.inutils4j.MyMimeUtils;
 import org.junit.Test;
 
 public class MyMimeUtilsTest {

@@ -1,4 +1,4 @@
-package org.brunocunha.inutils4j.tests;
+package org.brunocvcunha.inutils4j.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.brunocunha.inutils4j.MyDateUtils;
+import org.brunocvcunha.inutils4j.MyDateUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

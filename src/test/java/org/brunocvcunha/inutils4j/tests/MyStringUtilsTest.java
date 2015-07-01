@@ -1,4 +1,4 @@
-package org.brunocunha.inutils4j.tests;
+package org.brunocvcunha.inutils4j.tests;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
-import org.brunocunha.inutils4j.MyStringUtils;
+import org.brunocvcunha.inutils4j.MyStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

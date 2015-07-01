@@ -1,4 +1,4 @@
-package org.brunocunha.inutils4j;
+package org.brunocvcunha.inutils4j;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -224,7 +224,7 @@ public class MyFileUtils {
         File saveTo = chooser.getSelectedFile();
 
         return saveTo;
-    }
+    } 
 
     public static void sortLines(File file) throws IOException {
         Collection<String> lines = MyStringUtils.getContentListSplit(file, "\r?\n");
