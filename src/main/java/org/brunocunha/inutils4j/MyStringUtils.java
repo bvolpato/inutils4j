@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,23 +221,9 @@ public class MyStringUtils {
 
 		s = s.replace((char) 0xFA, 'u');
 
-		s = s.replaceAll("Ç", "C");
-		s = s.replaceAll("ç", "c");
-
-		s = s.replaceAll("[ãã]", "a");
-		s = s.replaceAll("[ãàâã]", "a");
-		s = s.replaceAll("[èéêë]", "e");
-		s = s.replaceAll("[ïîí]", "i");
-
-		s = s.replaceAll("[õóòö]", "o");
-		s = s.replaceAll("[ûùüú]", "u");
-
-		s = s.replaceAll("[ÀÂÃ]", "A");
-		s = s.replaceAll("[ÈÉÊË]", "E");
-		s = s.replaceAll("[ÏÎÍ]", "I");
-		s = s.replaceAll("[ÕÔ]", "O");
-		s = s.replaceAll("[ÛÙÜÚ]", "U");
-
+		s = Normalizer.normalize(s, Normalizer.Form.NFD);
+		s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+		
 		return s;
 	}
 
@@ -1535,6 +1522,12 @@ public class MyStringUtils {
 	
 	public static boolean isCapitalized(String str) {
 		return Character.isUpperCase(str.charAt(0));
+	}
+
+	public static boolean hasInvalidChar(String str, String validChars) {
+		Pattern regexChars = Pattern.compile("[{}()\\[\\].+*?^$\\\\|]");
+		String checkRegex ="([" + regexChars.matcher(validChars).replaceAll("\\\\$0") + "])+"; 
+		return !str.matches(checkRegex);
 	}
 	
 	
