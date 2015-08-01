@@ -15,6 +15,7 @@
  */
 package org.brunocvcunha.inutils4j;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -27,35 +28,24 @@ import java.util.Map;
  */
 public class MyHTTPUtils {
 
-	public static String getContent(String stringUrl) {
-		try {
-			URL url = new URL(stringUrl);
-			return MyStreamUtils.readContent(url.openStream());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+  public static String getContent(String stringUrl) throws IOException {
+    URL url = new URL(stringUrl);
+    return MyStreamUtils.readContent(url.openStream());
+  }
 
-		return null;
-	}
 
-	
-	public static Map<String, List<String>> getResponseHeaders(String stringUrl) {
-		return getResponseHeaders(stringUrl, true);
-	}
+  public static Map<String, List<String>> getResponseHeaders(String stringUrl) throws IOException {
+    return getResponseHeaders(stringUrl, true);
+  }
 
-	public static Map<String, List<String>> getResponseHeaders(String stringUrl, boolean followRedirects) {
-		try {
-			URL url = new URL(stringUrl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setInstanceFollowRedirects(followRedirects);
-			return conn.getHeaderFields();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+  public static Map<String, List<String>> getResponseHeaders(String stringUrl,
+      boolean followRedirects) throws IOException {
+    URL url = new URL(stringUrl);
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setInstanceFollowRedirects(followRedirects);
+    return conn.getHeaderFields();
+  }
 
-		return null;
-	}
 
-	
-	
+
 }

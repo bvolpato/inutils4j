@@ -87,6 +87,30 @@ public class MyStringUtilsTest {
 		assertEquals(2, StringUtils.countMatches("estee xteste tteste", "teste"));
 	}
 
+    @Test
+    public void testJapanese() {
+        assertTrue(MyStringUtils.hasJapaneseCharacter("日本語ワード"));
+        assertTrue(MyStringUtils.hasJapaneseCharacter("私の名前は無用です"));
+    }
+    @Test
+    public void testNonJapanese() {
+        assertFalse(MyStringUtils.hasJapaneseCharacter("japanese word"));
+        assertFalse(MyStringUtils.hasJapaneseCharacter("my name is inutils"));
+    }
+
+       
+    @Test
+    public void testChinese() {
+        assertTrue(MyStringUtils.hasChineseCharacter("中國字"));
+        assertTrue(MyStringUtils.hasChineseCharacter("我的名字是沒用的"));
+    }
+    @Test
+    public void testNonChinese() {
+        assertFalse(MyStringUtils.hasChineseCharacter("chinese word"));
+        assertFalse(MyStringUtils.hasChineseCharacter("my name is inutils"));
+    }
+
+       
 	@Test
 	public void testInsertSubstring() {
 		assertEquals("BRUNO", MyStringUtils.insertSubString("BRNO", "U", 2));
@@ -108,7 +132,7 @@ public class MyStringUtilsTest {
 	@Test
 	public void testChars() {
 		assertEquals("Teste", MyStringUtils.capitalize("teste"));
-		assertEquals("Não", MyStringUtils.capitalize("não"));
+		assertEquals("NÃ£o", MyStringUtils.capitalize("nÃ£o"));
 		assertEquals("Teste de validação", MyStringUtils.capitalize("teste de validação"));
 
 		assertEquals("          ", MyStringUtils.spaces(10));
@@ -208,7 +232,7 @@ public class MyStringUtilsTest {
 	@Test
 	public void testHas() {
 		assertTrue(MyStringUtils.hasLetter("teste"));
-		assertTrue(MyStringUtils.hasLetter("TE!@#$%Â¨&*()STE"));
+		assertTrue(MyStringUtils.hasLetter("TE!@#$%Ã‚Â¨&*()STE"));
 		assertTrue(MyStringUtils.hasLetter("123teste123"));
 		assertTrue(MyStringUtils.hasLetter("12345s12345"));
 		assertTrue(MyStringUtils.hasLetter("s1234567890"));
@@ -223,7 +247,7 @@ public class MyStringUtilsTest {
 		assertFalse(MyStringUtils.hasLetter("_"));
 		assertFalse(MyStringUtils.hasLetter("9"));
 		assertFalse(MyStringUtils.hasLetter("1234567890"));
-		assertFalse(MyStringUtils.hasLetter("!@#$%Â¨&*()"));
+		assertFalse(MyStringUtils.hasLetter("!@#$%Ã‚Â¨&*()"));
 
 	}
 
