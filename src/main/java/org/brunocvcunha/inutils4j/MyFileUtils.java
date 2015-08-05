@@ -254,7 +254,7 @@ public class MyFileUtils {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
 
-        int save = chooser.showSaveDialog(null);
+        chooser.showSaveDialog(null);
         File saveTo = chooser.getSelectedFile();
 
         return saveTo;
@@ -267,7 +267,7 @@ public class MyFileUtils {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 
-        int save = chooser.showSaveDialog(null);
+        chooser.showSaveDialog(null);
         File saveTo = chooser.getSelectedFile();
 
         return saveTo;
@@ -280,7 +280,7 @@ public class MyFileUtils {
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
 
-        int save = chooser.showSaveDialog(null);
+       chooser.showSaveDialog(null);
         File saveTo = chooser.getSelectedFile();
 
         return saveTo;

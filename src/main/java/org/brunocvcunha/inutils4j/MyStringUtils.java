@@ -82,6 +82,11 @@ public class MyStringUtils {
 
 
   public static final Set<UnicodeBlock> JAPANESE_BLOCKS = new HashSet<UnicodeBlock>() {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     {
       add(UnicodeBlock.HIRAGANA);
       add(UnicodeBlock.KATAKANA);
@@ -89,6 +94,11 @@ public class MyStringUtils {
     }
   };
   public static final Set<UnicodeBlock> CHINESE_BLOCKS = new HashSet<UnicodeBlock>() {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     {
       add(UnicodeBlock.CJK_COMPATIBILITY);
       add(UnicodeBlock.CJK_COMPATIBILITY_FORMS);
@@ -105,6 +115,11 @@ public class MyStringUtils {
   };
 
   public static final Set<UnicodeBlock> ARABIC_BLOCKS = new HashSet<UnicodeBlock>() {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     {
       add(UnicodeBlock.ARABIC);
     }
