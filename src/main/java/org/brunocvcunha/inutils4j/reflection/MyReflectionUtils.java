@@ -68,7 +68,7 @@ public class MyReflectionUtils {
       throws InstantiationException, IllegalAccessException, IntrospectionException,
       IllegalArgumentException, InvocationTargetException {
 
-    log.info("Building new instance of Class " + clazz.getName());
+    log.debug("Building new instance of Class " + clazz.getName());
 
     T instance = clazz.newInstance();
 

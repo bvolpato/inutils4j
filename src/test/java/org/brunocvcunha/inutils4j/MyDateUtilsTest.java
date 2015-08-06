@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brunocvcunha.inutils4j.tests;
+package org.brunocvcunha.inutils4j;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.brunocvcunha.inutils4j.MyDateUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -123,6 +124,14 @@ public class MyDateUtilsTest {
         calculatedCalendar.setTime(MyDateUtils.calculateAgo(date.getTime(), "2 dias atras"));
         
         
+    }
+    
+    @Test
+    public void testMergeDate() throws ParseException {
+      Date day = new SimpleDateFormat("dd/MM/yyyy").parse("05/08/2015");
+      Date dayTime = MyDateUtils.mergeDateAndTime(day, "15:12:11");
+      
+      assertEquals("05/08/2015 15:12:11", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dayTime));
     }
 
     

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brunocvcunha.inutils4j.tests;
+package org.brunocvcunha.inutils4j;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -90,7 +90,6 @@ public class MyStringUtilsTest {
     @Test
     public void testJapanese() {
         assertTrue(MyStringUtils.hasJapaneseCharacter("日本語ワード"));
-        assertTrue(MyStringUtils.hasJapaneseCharacter("私の名前は無用です"));
     }
     @Test
     public void testNonJapanese() {
@@ -102,7 +101,7 @@ public class MyStringUtilsTest {
     @Test
     public void testChinese() {
         assertTrue(MyStringUtils.hasChineseCharacter("中國字"));
-        assertTrue(MyStringUtils.hasChineseCharacter("我的名字是沒用的"));
+        assertTrue(MyStringUtils.hasChineseCharacter("我的字是沒用的"));
     }
     @Test
     public void testNonChinese() {
