@@ -15,6 +15,10 @@
  */
 package org.brunocvcunha.inutils4j;
 
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -1580,6 +1584,9 @@ public class MyStringUtils {
     }
     return false;
   }
-  
+
+  public static String getFromClipboard() throws HeadlessException, UnsupportedFlavorException, IOException {
+    return (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+  }
 
 }
