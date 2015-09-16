@@ -17,7 +17,9 @@ package org.brunocvcunha.inutils4j;
 
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -1585,6 +1587,12 @@ public class MyStringUtils {
     return false;
   }
 
+  public static void setToClipboard(String aString){
+    StringSelection stringSelection = new StringSelection(aString);
+    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    clipboard.setContents(stringSelection, null);
+  }
+  
   public static String getFromClipboard() throws HeadlessException, UnsupportedFlavorException, IOException {
     return (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
   }
