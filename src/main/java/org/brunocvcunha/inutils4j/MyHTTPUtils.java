@@ -15,8 +15,11 @@
  */
 package org.brunocvcunha.inutils4j;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +49,13 @@ public class MyHTTPUtils {
     return conn.getHeaderFields();
   }
 
+  public static void downloadUrl(String stringUrl, File fileToSave) throws IOException {
+    URL url = new URL(stringUrl);
+    byte[] data = MyStreamUtils.readContentBytes(url.openStream());
+    FileOutputStream fos = new FileOutputStream(fileToSave);
+    fos.write(data);
+    fos.close();
+  }
 
 
 }
