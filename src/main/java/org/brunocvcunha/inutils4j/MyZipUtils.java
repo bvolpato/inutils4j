@@ -25,6 +25,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * ZIP (In)utilities.
+ * 
+ * @author Bruno Candido Volpato da Cunha
+ */
 public class MyZipUtils {
 
   /**
