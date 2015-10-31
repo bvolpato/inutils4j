@@ -40,8 +40,9 @@ public class MyDateUtils {
     String dia = data.substring(0, 2);
     String mes = data.substring(3, 5);
     String ano = data.substring(6, 10);
-    GregorianCalendar calendar = new GregorianCalendar(Integer.parseInt(ano),
-        Integer.parseInt(mes) - 1, Integer.parseInt(dia));
+    GregorianCalendar calendar =
+        new GregorianCalendar(Integer.parseInt(ano), Integer.parseInt(mes) - 1,
+            Integer.parseInt(dia));
     date = new Date(calendar.getTimeInMillis());
     return date;
   }

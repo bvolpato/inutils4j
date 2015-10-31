@@ -1587,14 +1587,16 @@ public class MyStringUtils {
     return false;
   }
 
-  public static void setToClipboard(String aString){
+  public static void setToClipboard(String aString) {
     StringSelection stringSelection = new StringSelection(aString);
     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     clipboard.setContents(stringSelection, null);
   }
-  
-  public static String getFromClipboard() throws HeadlessException, UnsupportedFlavorException, IOException {
-    return (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+
+  public static String getFromClipboard() throws HeadlessException, UnsupportedFlavorException,
+      IOException {
+    return (String) Toolkit.getDefaultToolkit().getSystemClipboard()
+        .getData(DataFlavor.stringFlavor);
   }
 
 }

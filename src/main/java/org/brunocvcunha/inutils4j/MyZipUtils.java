@@ -27,139 +27,137 @@ import java.util.zip.ZipOutputStream;
 
 public class MyZipUtils {
 
-	/**
-	 * Extracts the zip file to the output folder
-	 * 
-	 * @param zipFile
-	 *            ZIP File to extract
-	 * @param outputFolder
-	 *            Output Folder
-	 * @return A Collection with the extracted files
-	 * @throws IOException
-	 */
-	public static List<File> extract(File zipFile, File outputFolder)
-			throws IOException {
-		List<File> extracted = new ArrayList<File>();
+  /**
+   * Extracts the zip file to the output folder
+   * 
+   * @param zipFile ZIP File to extract
+   * @param outputFolder Output Folder
+   * @return A Collection with the extracted files
+   * @throws IOException
+   */
+  public static List<File> extract(File zipFile, File outputFolder) throws IOException {
+    List<File> extracted = new ArrayList<File>();
 
-		byte[] buffer = new byte[2048];
+    byte[] buffer = new byte[2048];
 
-		if (!outputFolder.exists()) {
-			outputFolder.mkdir();
-		}
+    if (!outputFolder.exists()) {
+      outputFolder.mkdir();
+    }
 
-		ZipInputStream zipInput = new ZipInputStream(new FileInputStream(
-				zipFile));
+    ZipInputStream zipInput = new ZipInputStream(new FileInputStream(zipFile));
 
-		ZipEntry zipEntry = zipInput.getNextEntry();
+    ZipEntry zipEntry = zipInput.getNextEntry();
 
-		while (zipEntry != null) {
+    while (zipEntry != null) {
 
-			String neFileNameName = zipEntry.getName();
-			File newFile = new File(outputFolder + File.separator
-					+ neFileNameName);
+      String neFileNameName = zipEntry.getName();
+      File newFile = new File(outputFolder + File.separator + neFileNameName);
 
-			newFile.getParentFile().mkdirs();
+      newFile.getParentFile().mkdirs();
 
-			if (!zipEntry.isDirectory()) {
-				FileOutputStream fos = new FileOutputStream(newFile);
+      if (!zipEntry.isDirectory()) {
+        FileOutputStream fos = new FileOutputStream(newFile);
 
-				int size;
-				while ((size = zipInput.read(buffer)) > 0) {
-					fos.write(buffer, 0, size);
-				}
+        int size;
+        while ((size = zipInput.read(buffer)) > 0) {
+          fos.write(buffer, 0, size);
+        }
 
-				fos.close();
-				extracted.add(newFile);
-			}
+        fos.close();
+        extracted.add(newFile);
+      }
 
-			zipEntry = zipInput.getNextEntry();
-		}
+      zipEntry = zipInput.getNextEntry();
+    }
 
-		zipInput.closeEntry();
-		zipInput.close();
+    zipInput.closeEntry();
+    zipInput.close();
 
-		return extracted;
+    return extracted;
 
-	}
-	
-	
+  }
 
-	/**
-	 * Checks if a Zip is valid navigating through the entries
-	 * 
-	 * @param file
-	 * @throws IOException
-	 */
-	public static void validateZip(File file) throws IOException {
-		ZipInputStream zipInput = new ZipInputStream(new FileInputStream(file));
-		ZipEntry zipEntry = zipInput.getNextEntry();
 
-		while (zipEntry != null) {
-			zipEntry = zipInput.getNextEntry();
-		}
 
-		try {
-			if (zipInput != null) {
-				zipInput.close();
-			}
-		} catch (IOException e) {
-		}
-	}
-	
-	/**
-	 * Compress a directory into a zip file
-	 * @param dir
-	 * @param zipFile
-	 * @throws IOException
-	 */
-	public static void compress(File dir, File zipFile) throws IOException {
+  /**
+   * Checks if a Zip is valid navigating through the entries
+   * 
+   * @param file
+   * @throws IOException
+   */
+  public static void validateZip(File file) throws IOException {
+    ZipInputStream zipInput = new ZipInputStream(new FileInputStream(file));
+    ZipEntry zipEntry = zipInput.getNextEntry();
 
-		FileOutputStream fos = new FileOutputStream(zipFile);
-		ZipOutputStream zos = new ZipOutputStream(fos);
+    while (zipEntry != null) {
+      zipEntry = zipInput.getNextEntry();
+    }
 
-		recursiveAddZip(dir, zos, dir);
+    try {
+      if (zipInput != null) {
+        zipInput.close();
+      }
+    } catch (IOException e) {
+    }
+  }
 
-		zos.finish();
-		zos.close();
+  /**
+   * Compress a directory into a zip file
+   * 
+   * @param dir
+   * @param zipFile
+   * @throws IOException
+   */
+  public static void compress(File dir, File zipFile) throws IOException {
 
-	}
+    FileOutputStream fos = new FileOutputStream(zipFile);
+    ZipOutputStream zos = new ZipOutputStream(fos);
 
-	/**
-	 * Recursively add files to a ZipOutputStream 
-	 * @param parent
-	 * @param zout
-	 * @param fileSource
-	 * @throws IOException
-	 */
-	public static void recursiveAddZip(File parent, ZipOutputStream zout,
-			File fileSource) throws IOException {
+    recursiveAddZip(dir, zos, dir);
 
-		File[] files = fileSource.listFiles();
+    zos.finish();
+    zos.close();
 
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory()) {
-				recursiveAddZip(parent, zout, files[i]);
-				continue;
-			}
+  }
 
-			byte[] buffer = new byte[1024];
+  /**
+   * Recursively add files to a ZipOutputStream
+   * 
+   * @param parent
+   * @param zout
+   * @param fileSource
+   * @throws IOException
+   */
+  public static void recursiveAddZip(File parent, ZipOutputStream zout, File fileSource)
+      throws IOException {
 
-			FileInputStream fin = new FileInputStream(files[i]);
+    File[] files = fileSource.listFiles();
 
-			ZipEntry zipEntry = new ZipEntry(files[i].getAbsolutePath()
-					.replace(parent.getAbsolutePath(), "").substring(1)); //$NON-NLS-1$
-			zout.putNextEntry(zipEntry);
+    for (int i = 0; i < files.length; i++) {
+      if (files[i].isDirectory()) {
+        recursiveAddZip(parent, zout, files[i]);
+        continue;
+      }
 
-			int length;
-			while ((length = fin.read(buffer)) > 0) {
-				zout.write(buffer, 0, length);
-			}
+      byte[] buffer = new byte[1024];
 
-			zout.closeEntry();
+      FileInputStream fin = new FileInputStream(files[i]);
 
-			fin.close();
+      ZipEntry zipEntry =
+          new ZipEntry(files[i].getAbsolutePath()
+              .replace(parent.getAbsolutePath(), "").substring(1)); //$NON-NLS-1$
+      zout.putNextEntry(zipEntry);
 
-		}
+      int length;
+      while ((length = fin.read(buffer)) > 0) {
+        zout.write(buffer, 0, length);
+      }
 
-	}
+      zout.closeEntry();
+
+      fin.close();
+
+    }
+
+  }
 }
