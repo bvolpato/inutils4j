@@ -39,14 +39,34 @@ public class MyImageUtils {
   public static BufferedImage trim(BufferedImage img) {
     int width = getTrimmedWidth(img);
     int height = getTrimmedHeight(img);
+    int xStart = getTrimmedXStart(img);
+    int yStart = getTrimmedYStart(img);
 
-    BufferedImage newImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    BufferedImage newImg = new BufferedImage(width - xStart, height - yStart, BufferedImage.TYPE_INT_RGB);
     Graphics g = newImg.createGraphics();
-    g.drawImage(img, 0, 0, null);
+    g.drawImage(img, 0 - xStart, 0 - yStart, null);
 
     return newImg;
   }
 
+  private static int getTrimmedXStart(BufferedImage img) {
+    int height = img.getHeight();
+    int width = img.getWidth();
+    int xStart = width;
+
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        if (img.getRGB(j, i) != Color.WHITE.getRGB() && j < xStart) {
+          xStart = j;
+          break;
+        }
+      }
+    }
+
+    return xStart;
+  }
+
+  
   private static int getTrimmedWidth(BufferedImage img) {
     int height = img.getHeight();
     int width = img.getWidth();
@@ -63,6 +83,24 @@ public class MyImageUtils {
 
     return trimmedWidth;
   }
+
+  private static int getTrimmedYStart(BufferedImage img) {
+    int width = img.getWidth();
+    int height = img.getHeight();
+    int yStart = height;
+
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        if (img.getRGB(i, j) != Color.WHITE.getRGB() && j < yStart) {
+          yStart = j;
+          break;
+        }
+      }
+    }
+
+    return yStart;
+  }
+
 
   private static int getTrimmedHeight(BufferedImage img) {
     int width = img.getWidth();
