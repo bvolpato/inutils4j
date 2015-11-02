@@ -32,10 +32,22 @@ import javax.imageio.ImageIO;
  */
 public class MyImageUtils {
 
+  
+  /**
+   * Converts a File instance to a BufferedImage
+   * @param file
+   * @return
+   * @throws IOException
+   */
   public static BufferedImage getImage(File file) throws IOException {
     return ImageIO.read(file);
   }
   
+  /**
+   * Trims an image (removes all leading and trailing white spaces)
+   * @param img
+   * @return
+   */
   public static BufferedImage trim(BufferedImage img) {
     int width = getTrimmedWidth(img);
     int height = getTrimmedHeight(img);
@@ -49,6 +61,11 @@ public class MyImageUtils {
     return newImg;
   }
 
+  /**
+   * Get the first non-white X point
+   * @param img
+   * @return
+   */
   private static int getTrimmedXStart(BufferedImage img) {
     int height = img.getHeight();
     int width = img.getWidth();
@@ -67,6 +84,11 @@ public class MyImageUtils {
   }
 
   
+  /**
+   * Get the last non-white X point
+   * @param img
+   * @return
+   */
   private static int getTrimmedWidth(BufferedImage img) {
     int height = img.getHeight();
     int width = img.getWidth();
@@ -84,6 +106,11 @@ public class MyImageUtils {
     return trimmedWidth;
   }
 
+  /**
+   * Get the first non-white Y point
+   * @param img
+   * @return
+   */
   private static int getTrimmedYStart(BufferedImage img) {
     int width = img.getWidth();
     int height = img.getHeight();
@@ -102,6 +129,11 @@ public class MyImageUtils {
   }
 
 
+  /**
+   * Get the last non-white Y point
+   * @param img
+   * @return
+   */
   private static int getTrimmedHeight(BufferedImage img) {
     int width = img.getWidth();
     int height = img.getHeight();
@@ -120,6 +152,12 @@ public class MyImageUtils {
   }
 
 
+  /**
+   * Resizes an image to the specified height, changing width in the same proportion
+   * @param originalImage
+   * @param heightOut
+   * @return
+   */
   public static BufferedImage resizeToHeight(BufferedImage originalImage, int heightOut) {
 
     int width = originalImage.getWidth();
