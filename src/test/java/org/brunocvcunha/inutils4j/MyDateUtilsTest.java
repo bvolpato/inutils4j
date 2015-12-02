@@ -55,9 +55,9 @@ public class MyDateUtilsTest {
     @Test
     public void testeAgoToday() {
         Calendar date = new GregorianCalendar();
-        date.set(Calendar.DAY_OF_MONTH, 10);;
-        date.set(Calendar.MONTH, 5);;
-        date.set(Calendar.YEAR, 2015);;
+        date.set(Calendar.DAY_OF_MONTH, 10);
+        date.set(Calendar.MONTH, 5);
+        date.set(Calendar.YEAR, 2015);
         
         Date calculated = MyDateUtils.calculateAgo(date.getTime(), "today");
         assertEquals(date.getTime().getTime(), calculated.getTime());
@@ -68,9 +68,9 @@ public class MyDateUtilsTest {
     @Test
     public void testeAgoYesterday() {
         Calendar date = new GregorianCalendar();
-        date.set(Calendar.DAY_OF_MONTH, 10);;
-        date.set(Calendar.MONTH, 5);;
-        date.set(Calendar.YEAR, 2015);;
+        date.set(Calendar.DAY_OF_MONTH, 10);
+        date.set(Calendar.MONTH, 5);
+        date.set(Calendar.YEAR, 2015);
         
         Calendar calculatedCalendar = Calendar.getInstance();
         calculatedCalendar.setTime(MyDateUtils.calculateAgo(date.getTime(), "yesterday"));
@@ -84,9 +84,9 @@ public class MyDateUtilsTest {
     @Test
     public void testeDaysAgo() {
         Calendar date = new GregorianCalendar();
-        date.set(Calendar.DAY_OF_MONTH, 10);;
-        date.set(Calendar.MONTH, 5);;
-        date.set(Calendar.YEAR, 2015);;
+        date.set(Calendar.DAY_OF_MONTH, 10);
+        date.set(Calendar.MONTH, 5);
+        date.set(Calendar.YEAR, 2015);
         
         Calendar calculatedCalendar = Calendar.getInstance();
         calculatedCalendar.setTime(MyDateUtils.calculateAgo(date.getTime(), "2 days ago"));
@@ -100,9 +100,9 @@ public class MyDateUtilsTest {
     @Test
     public void testeWeeksAgo() {
         Calendar date = new GregorianCalendar();
-        date.set(Calendar.DAY_OF_MONTH, 27);;
-        date.set(Calendar.MONTH, 5);;
-        date.set(Calendar.YEAR, 2015);;
+        date.set(Calendar.DAY_OF_MONTH, 27);
+        date.set(Calendar.MONTH, 5);
+        date.set(Calendar.YEAR, 2015);
         
         Calendar calculatedCalendar = Calendar.getInstance();
         calculatedCalendar.setTime(MyDateUtils.calculateAgo(date.getTime(), "2 weeks ago"));
@@ -116,9 +116,9 @@ public class MyDateUtilsTest {
     @Test(expected=IllegalArgumentException.class)
     public void testExceptionInvalid() {
         Calendar date = new GregorianCalendar();
-        date.set(Calendar.DAY_OF_MONTH, 10);;
-        date.set(Calendar.MONTH, 5);;
-        date.set(Calendar.YEAR, 2015);;
+        date.set(Calendar.DAY_OF_MONTH, 10);
+        date.set(Calendar.MONTH, 5);
+        date.set(Calendar.YEAR, 2015);
         
         Calendar calculatedCalendar = Calendar.getInstance();
         calculatedCalendar.setTime(MyDateUtils.calculateAgo(date.getTime(), "2 dias atras"));

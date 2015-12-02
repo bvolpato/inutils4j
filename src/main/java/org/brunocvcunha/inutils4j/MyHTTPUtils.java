@@ -18,11 +18,13 @@ package org.brunocvcunha.inutils4j;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * HTTP (In)utilities.
@@ -34,6 +36,46 @@ public class MyHTTPUtils {
   public static String getContent(String stringUrl) throws IOException {
     URL url = new URL(stringUrl);
     return MyStreamUtils.readContent(url.openStream());
+  }
+
+  public static String getContent(String stringUrl, Map<String, String> parameters)
+      throws IOException {
+    URL url = new URL(stringUrl);
+    URLConnection conn = url.openConnection();
+
+    if (parameters != null) {
+      for (Entry<String, String> entry : parameters.entrySet()) {
+        conn.addRequestProperty(entry.getKey(), entry.getValue());
+      }
+    }
+
+    return MyStreamUtils.readContent(conn.getInputStream());
+  }
+
+
+  public static String getContentPost(String stringUrl, Map<String, String> parameters,
+      String input, String charset) throws IOException {
+    URL url = new URL(stringUrl);
+    URLConnection conn = url.openConnection();
+    conn.setDoOutput(true);
+
+    if (parameters != null) {
+      for (Entry<String, String> entry : parameters.entrySet()) {
+        conn.addRequestProperty(entry.getKey(), entry.getValue());
+      }
+    }
+
+    OutputStream output = null;
+    try {
+      output = conn.getOutputStream();
+      output.write(input.getBytes(charset));
+    } finally {
+      if (output != null) {
+        output.close();
+      }
+    }
+
+    return MyStreamUtils.readContent(conn.getInputStream());
   }
 
 
