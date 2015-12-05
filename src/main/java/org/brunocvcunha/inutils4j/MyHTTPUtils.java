@@ -99,5 +99,11 @@ public class MyHTTPUtils {
     fos.close();
   }
 
+  public static byte[] getContentBytes(String stringUrl) throws IOException {
+    URL url = new URL(stringUrl);
+    byte[] data = MyStreamUtils.readContentBytes(url.openStream());
+    return data;
+  }
+
 
 }
