@@ -16,6 +16,7 @@
 package org.brunocvcunha.inutils4j;
 
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -31,7 +32,8 @@ public class MyMapUtils {
     Map<K, Integer> newMap = new TreeMap<K, Integer>(new IntegerValueComparator(inputMap));
     newMap.putAll(inputMap);
 
-    return newMap;
+    Map<K, Integer> linkedMap = new LinkedHashMap<K, Integer>(newMap);
+    return linkedMap;
   }
 
 
