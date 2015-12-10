@@ -15,36 +15,33 @@
  */
 package org.brunocvcunha.inutils4j;
 
-import java.util.Collection;
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
-/**
- * List utilities
- * @author Bruno Candido Volpato da Cunha
- *
- * @param <T> The type to deal with
- */
-public class MyListUtils<T> {
+import org.junit.Test;
 
-  public Set<T> getSet(Collection<T> collection) {
-    Set<T> set = new TreeSet<T>();
-    set.addAll(collection);
+public class MyMapUtilsTest {
+  @Test
+  public void testRank() {
+    
+    Map<String, Integer> age = new HashMap<String, Integer>();
+    age.put("a", 10);
+    age.put("b", 5);
+    age.put("c", 2);
+    age.put("d", 4);
+    
+    
+    Map<String, Integer> orderedMap = MyMapUtils.rankMapOnIntegerValue(age);
+    Set<String> keySet = orderedMap.keySet();
+    Iterator<String> itera = keySet.iterator();
 
-    return set;
+    assertEquals("a", itera.next());
+    assertEquals("b", itera.next());
+    assertEquals("d", itera.next());
+    assertEquals("c", itera.next());
   }
-
-  public String join(Collection<T> col, String delim) {
-    StringBuilder sb = new StringBuilder();
-    Iterator<T> iter = col.iterator();
-    if (iter.hasNext())
-      sb.append(iter.next().toString());
-    while (iter.hasNext()) {
-      sb.append(delim);
-      sb.append(iter.next().toString());
-    }
-    return sb.toString();
-  }
-
 }

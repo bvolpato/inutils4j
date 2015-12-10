@@ -15,36 +15,41 @@
  */
 package org.brunocvcunha.inutils4j;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
- * List utilities
+ * Map utilities
+ * 
  * @author Bruno Candido Volpato da Cunha
  *
- * @param <T> The type to deal with
  */
-public class MyListUtils<T> {
+public class MyMapUtils {
 
-  public Set<T> getSet(Collection<T> collection) {
-    Set<T> set = new TreeSet<T>();
-    set.addAll(collection);
+  public static <K> Map<K, Integer> rankMapOnIntegerValue(Map<K, Integer> inputMap) {
+    Map<K, Integer> newMap = new TreeMap<K, Integer>(new IntegerValueComparator(inputMap));
+    newMap.putAll(inputMap);
 
-    return set;
+    return newMap;
   }
 
-  public String join(Collection<T> col, String delim) {
-    StringBuilder sb = new StringBuilder();
-    Iterator<T> iter = col.iterator();
-    if (iter.hasNext())
-      sb.append(iter.next().toString());
-    while (iter.hasNext()) {
-      sb.append(delim);
-      sb.append(iter.next().toString());
+
+}
+
+
+class IntegerValueComparator implements Comparator<Object> {
+  Map<?, Integer> base;
+
+  public IntegerValueComparator(Map<?, Integer> base) {
+    this.base = base;
+  }
+
+  public int compare(Object a, Object b) {
+    if (base.get(a) >= base.get(b)) {
+      return -1;
+    } else {
+      return 1;
     }
-    return sb.toString();
   }
-
 }
