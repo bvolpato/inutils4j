@@ -53,6 +53,8 @@ public class MyHTTPUtils {
   }
 
 
+
+  
   public static String getContentPost(String stringUrl, Map<String, String> parameters,
       String input, String charset) throws IOException {
     URL url = new URL(stringUrl);
@@ -91,9 +93,18 @@ public class MyHTTPUtils {
     return conn.getHeaderFields();
   }
 
-  public static void downloadUrl(String stringUrl, File fileToSave) throws IOException {
+  public static void downloadUrl(String stringUrl, Map<String, String> parameters, File fileToSave) throws IOException {
     URL url = new URL(stringUrl);
-    byte[] data = MyStreamUtils.readContentBytes(url.openStream());
+    URLConnection conn = url.openConnection();
+
+    if (parameters != null) {
+      for (Entry<String, String> entry : parameters.entrySet()) {
+        conn.addRequestProperty(entry.getKey(), entry.getValue());
+      }
+    }
+
+    
+    byte[] data = MyStreamUtils.readContentBytes(conn.getInputStream());
     FileOutputStream fos = new FileOutputStream(fileToSave);
     fos.write(data);
     fos.close();
