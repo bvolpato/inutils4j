@@ -193,20 +193,20 @@ public class MyStringUtilsTest {
 		assertEquals(
 				"E importante questionar o quanto o consenso sobre a necessidade de qualificacao maximiza as possibilidades por conta do orcamento setorial.",
 				MyStringUtils
-						.removerAcentos("É importante questionar o quanto o consenso sobre a necessidade de qualificação maximiza as possibilidades por conta do orçamento setorial."));
+						.removeAccents("É importante questionar o quanto o consenso sobre a necessidade de qualificação maximiza as possibilidades por conta do orçamento setorial."));
 
-		assertEquals("Ordem de Producao", MyStringUtils.removerAcentos("Ordem de Produção"));
-		assertEquals("Util", MyStringUtils.removerAcentos("Útil"));
-		assertEquals("INUTIL", MyStringUtils.removerAcentos("INÚTIL"));
-		assertEquals("util", MyStringUtils.removerAcentos("útil"));
-		assertEquals("obrigatoria", MyStringUtils.removerAcentos("obrigatória"));
-		assertEquals("nivel", MyStringUtils.removerAcentos("nível"));
-		assertEquals("teste de acentuacao", MyStringUtils.removerAcentos("teste de acentuação"));
-		assertEquals("TESTE DE ACENTUACAO", MyStringUtils.removerAcentos("TESTE DE ACENTUAÇÃO"));
+		assertEquals("Ordem de Producao", MyStringUtils.removeAccents("Ordem de Produção"));
+		assertEquals("Util", MyStringUtils.removeAccents("Útil"));
+		assertEquals("INUTIL", MyStringUtils.removeAccents("INÚTIL"));
+		assertEquals("util", MyStringUtils.removeAccents("útil"));
+		assertEquals("obrigatoria", MyStringUtils.removeAccents("obrigatória"));
+		assertEquals("nivel", MyStringUtils.removeAccents("nível"));
+		assertEquals("teste de acentuacao", MyStringUtils.removeAccents("teste de acentuação"));
+		assertEquals("TESTE DE ACENTUACAO", MyStringUtils.removeAccents("TESTE DE ACENTUAÇÃO"));
 		assertEquals("TESTE DE ACENTUACAO AVANCADO 2.0",
-				MyStringUtils.removerAcentos("TESTE DE ACENTUAÇÃO AVANÇADO 2.0"));
-		assertEquals("quociente de inteligencia", MyStringUtils.removerAcentos("qüociente de inteligencia"));
-		assertEquals("QUOCIENTE DE INTELIGENCIA", MyStringUtils.removerAcentos("QÜOCIENTE DE INTELIGENCIA"));
+				MyStringUtils.removeAccents("TESTE DE ACENTUAÇÃO AVANÇADO 2.0"));
+		assertEquals("quociente de inteligencia", MyStringUtils.removeAccents("qüociente de inteligencia"));
+		assertEquals("QUOCIENTE DE INTELIGENCIA", MyStringUtils.removeAccents("QÜOCIENTE DE INTELIGENCIA"));
 
 	}
 
@@ -215,7 +215,7 @@ public class MyStringUtilsTest {
 		assertEquals(
 				"O cuidado em identificar pontos criticos na valorizacao de fatores subjetivos assume importantes posicoes no estabelecimento dos relacionamentos verticais entre as hierarquias.",
 				MyStringUtils
-						.removerAcentos("O cuidado em identificar pontos críticos na valorização de fatores subjetivos assume importantes posições no estabelecimento dos relacionamentos verticais entre as hierarquias."));
+						.removeAccents("O cuidado em identificar pontos críticos na valorização de fatores subjetivos assume importantes posições no estabelecimento dos relacionamentos verticais entre as hierarquias."));
 
 	}
 
@@ -224,7 +224,7 @@ public class MyStringUtilsTest {
 		assertEquals(
 				"Nunca e demais lembrar o peso e o significado destes problemas, uma vez que a crescente influencia da midia obstaculiza a apreciacao da importancia das direcoes preferenciais no sentido do progresso.",
 				MyStringUtils
-						.removerAcentos("Nunca é demais lembrar o peso e o significado destes problemas, uma vez que a crescente influência da mídia obstaculiza a apreciação da importância das direções preferenciais no sentido do progresso."));
+						.removeAccents("Nunca é demais lembrar o peso e o significado destes problemas, uma vez que a crescente influência da mídia obstaculiza a apreciação da importância das direções preferenciais no sentido do progresso."));
 
 	}
 

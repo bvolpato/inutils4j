@@ -150,15 +150,21 @@ public class MyStringUtils {
 
   public static List<String> regexTest(Pattern pattern, String str) {
     Matcher match = pattern.matcher(str);
-    List<String> retorno = new ArrayList<String>();
+    List<String> ret = new ArrayList<String>();
 
     while (match.find()) {
-      retorno.add(match.group());
+      ret.add(match.group());
     }
 
-    return retorno;
+    return ret;
   }
 
+  /**
+   * Gets a specific line of a text (String)
+   * @param content text
+   * @param line line to get
+   * @return the specified line
+   */
   public static String getLine(String content, int line) {
     if (content == null) {
       return null;
@@ -172,6 +178,12 @@ public class MyStringUtils {
     return contentSplit[line - 1];
   }
 
+  /**
+   * Gets the first group of a regex 
+   * @param pattern Pattern
+   * @param str String to find
+   * @return the matching group
+   */
   public static String regexFindFirst(String pattern, String str) {
     return regexFindFirst(Pattern.compile(pattern), str, 1);
   }
@@ -275,7 +287,9 @@ public class MyStringUtils {
     return retorno;
   }
 
-  public static String removerAcentos(String s) {
+  public static String removeAccents(String _s) {
+    
+    String s = new String(_s);
     s = s.replace((char) 0xE1, 'a');
     s = s.replace((char) 0xE3, 'a');
 
@@ -294,8 +308,7 @@ public class MyStringUtils {
   }
 
   public static List<List<String>> split(List<String> list, int count) {
-    List<List<String>> retorno = new ArrayList<List<String>>();
-    return retorno;
+    throw new UnsupportedOperationException("Not implemented yet.");
   }
 
   public static Set<String> fixList(FixType type, Collection<String> list) {
@@ -338,7 +351,9 @@ public class MyStringUtils {
       return false;
     } finally {
       try {
-        out.close();
+        if (out != null) {
+          out.close();
+        }
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -448,17 +463,24 @@ public class MyStringUtils {
     return map;
   }
 
+  /**
+   * Get content of a file as a Map<String, String>, using separator to split values
+   * @param file
+   * @param separator
+   * @return The map with the values
+   * @throws IOException
+   */
   public static Map<String, String> getContentMap(File file, String separator) throws IOException {
     List<String> content = getContentLines(file);
     Map<String, String> map = new LinkedHashMap<String, String>();
+      
     for (String line : content) {
-      if (line.trim().length() > 0 && line.contains(separator)) {
-        String[] keyValue = line.split(separator);
-        map.put(keyValue[0], keyValue[1]);
-
+      String[] spl = line.split(separator);
+      if (line.trim().length() > 0) {
+        map.put(spl[0], (spl.length > 1 ? spl[1] : ""));
       }
     }
-
+    
     return map;
   }
 
