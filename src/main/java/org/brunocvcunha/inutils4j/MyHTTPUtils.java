@@ -36,6 +36,7 @@ public class MyHTTPUtils {
 
   /**
    * Get content for URL only
+   * 
    * @param stringUrl URL to get content
    * @return the content
    * @throws IOException I/O error happened
@@ -47,6 +48,7 @@ public class MyHTTPUtils {
 
   /**
    * Get content for url/parameters
+   * 
    * @param stringUrl URL to get content
    * @param parameters HTTP parameters to pass
    * @return content the response content
@@ -56,9 +58,10 @@ public class MyHTTPUtils {
       throws IOException {
     return getContent(stringUrl, parameters, null);
   }
-  
+
   /**
    * Get content for url/parameters/proxy
+   * 
    * @param stringUrl the URL to get
    * @param parameters HTTP parameters to pass
    * @param proxy Proxy to use
@@ -68,7 +71,13 @@ public class MyHTTPUtils {
   public static String getContent(String stringUrl, Map<String, String> parameters, Proxy proxy)
       throws IOException {
     URL url = new URL(stringUrl);
-    URLConnection conn = url.openConnection(proxy);
+    URLConnection conn;
+
+    if (proxy != null) {
+      conn = url.openConnection(proxy);
+    } else {
+      conn = url.openConnection();
+    }
 
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
@@ -83,6 +92,7 @@ public class MyHTTPUtils {
 
   /**
    * Post content / get response
+   * 
    * @param stringUrl URL to use
    * @param parameters HTTP headers
    * @param input Input data (payload)
@@ -118,6 +128,7 @@ public class MyHTTPUtils {
 
   /**
    * Get the response headers for URL
+   * 
    * @param stringUrl URL to use
    * @return headers HTTP Headers
    * @throws IOException I/O error happened
@@ -128,6 +139,7 @@ public class MyHTTPUtils {
 
   /**
    * Get the response headers for URL, following redirects
+   * 
    * @param stringUrl URL to use
    * @param followRedirects whether to follow redirects
    * @return headers HTTP Headers
@@ -143,12 +155,14 @@ public class MyHTTPUtils {
 
   /**
    * Download a specified URL to a file
+   * 
    * @param stringUrl URL to use
    * @param parameters HTTP Headers
    * @param fileToSave File to save content
    * @throws IOException I/O error happened
    */
-  public static void downloadUrl(String stringUrl, Map<String, String> parameters, File fileToSave) throws IOException {
+  public static void downloadUrl(String stringUrl, Map<String, String> parameters, File fileToSave)
+      throws IOException {
     URL url = new URL(stringUrl);
     URLConnection conn = url.openConnection();
 
@@ -158,7 +172,7 @@ public class MyHTTPUtils {
       }
     }
 
-    
+
     byte[] data = MyStreamUtils.readContentBytes(conn.getInputStream());
     FileOutputStream fos = new FileOutputStream(fileToSave);
     fos.write(data);
@@ -167,6 +181,7 @@ public class MyHTTPUtils {
 
   /**
    * Return the content from an URL in byte array
+   * 
    * @param stringUrl URL to get
    * @return byte array
    * @throws IOException I/O error happened
