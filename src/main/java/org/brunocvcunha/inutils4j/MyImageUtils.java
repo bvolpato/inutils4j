@@ -35,8 +35,8 @@ public class MyImageUtils {
   
   /**
    * Converts a File instance to a BufferedImage
-   * @param file
-   * @return
+   * @param file file to get
+   * @return Image in memory
    * @throws IOException
    */
   public static BufferedImage getImage(File file) throws IOException {
@@ -45,8 +45,8 @@ public class MyImageUtils {
   
   /**
    * Trims an image (removes all leading and trailing white spaces)
-   * @param img
-   * @return
+   * @param img Image in memory
+   * @return Trimmed image
    */
   public static BufferedImage trim(BufferedImage img) {
     int width = getTrimmedWidth(img);
@@ -63,8 +63,8 @@ public class MyImageUtils {
 
   /**
    * Get the first non-white X point
-   * @param img
-   * @return
+   * @param img Image n memory
+   * @return the x start
    */
   private static int getTrimmedXStart(BufferedImage img) {
     int height = img.getHeight();
@@ -86,8 +86,8 @@ public class MyImageUtils {
   
   /**
    * Get the last non-white X point
-   * @param img
-   * @return
+   * @param img Image in memory
+   * @return the trimmed width
    */
   private static int getTrimmedWidth(BufferedImage img) {
     int height = img.getHeight();
@@ -108,8 +108,8 @@ public class MyImageUtils {
 
   /**
    * Get the first non-white Y point
-   * @param img
-   * @return
+   * @param img Image in memory
+   * @return the trimmed y start
    */
   private static int getTrimmedYStart(BufferedImage img) {
     int width = img.getWidth();
@@ -131,8 +131,8 @@ public class MyImageUtils {
 
   /**
    * Get the last non-white Y point
-   * @param img
-   * @return
+   * @param img Image in memory
+   * @return The trimmed height
    */
   private static int getTrimmedHeight(BufferedImage img) {
     int width = img.getWidth();
@@ -154,9 +154,9 @@ public class MyImageUtils {
 
   /**
    * Resizes an image to the specified height, changing width in the same proportion
-   * @param originalImage
-   * @param heightOut
-   * @return
+   * @param originalImage Image in memory
+   * @param heightOut The height to resize 
+   * @return New Image in memory
    */
   public static BufferedImage resizeToHeight(BufferedImage originalImage, int heightOut) {
 

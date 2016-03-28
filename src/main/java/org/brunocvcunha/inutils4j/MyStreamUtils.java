@@ -28,37 +28,40 @@ import java.io.InputStreamReader;
  */
 public class MyStreamUtils {
 
+  /**
+   * Carriage return constant
+   */
   public static final String CARRIAGE_RETURN = "\r\n";
 
   /**
    * Gets string content from InputStream
    * 
-   * @param is
-   * @return
+   * @param is InputStream to read
+   * @return InputStream content
    */
   public static String readContent(InputStream is) {
-    String retorno = "";
+    String ret = "";
     try {
-      String linha;
+      String line;
       BufferedReader in = new BufferedReader(new InputStreamReader(is));
       StringBuffer out = new StringBuffer();
 
-      while ((linha = in.readLine()) != null) {
-        out.append(linha).append(CARRIAGE_RETURN);
+      while ((line = in.readLine()) != null) {
+        out.append(line).append(CARRIAGE_RETURN);
       }
-      retorno = out.toString();
+      ret = out.toString();
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    return retorno;
+    return ret;
   }
 
   /**
    * Converts an input stream to byte array
    * 
-   * @param is
-   * @return
+   * @param is InputStream to read
+   * @return byte array
    * @throws IOException
    */
   public static byte[] readContentBytes(InputStream is) throws IOException {
@@ -79,9 +82,9 @@ public class MyStreamUtils {
   /**
    * Checks if the InputStream have the text
    * 
-   * @param in
-   * @param text
-   * @return
+   * @param in InputStream to read
+   * @param text Text to check
+   * @return whether the inputstream has the text
    */
   public static boolean streamHasText(InputStream in, String text) {
     final byte[] readBuffer = new byte[8192];

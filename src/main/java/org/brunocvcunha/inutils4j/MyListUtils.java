@@ -24,18 +24,17 @@ import java.util.TreeSet;
  * List utilities
  * @author Bruno Candido Volpato da Cunha
  *
- * @param <T> The type to deal with
  */
-public class MyListUtils<T> {
+public class MyListUtils {
 
-  public Set<T> getSet(Collection<T> collection) {
+  public <T> Set<T> getSet(Collection<T> collection) {
     Set<T> set = new TreeSet<T>();
     set.addAll(collection);
 
     return set;
   }
 
-  public String join(Collection<T> col, String delim) {
+  public <T> String join(Collection<T> col, String delim) {
     StringBuilder sb = new StringBuilder();
     Iterator<T> iter = col.iterator();
     if (iter.hasNext())

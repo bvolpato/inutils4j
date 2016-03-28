@@ -195,6 +195,7 @@ public class MyStringUtilsTest {
 				MyStringUtils
 						.removeAccents("É importante questionar o quanto o consenso sobre a necessidade de qualificação maximiza as possibilidades por conta do orçamento setorial."));
 
+		assertEquals("Laercio", MyStringUtils.removeAccents("Laércio"));
 		assertEquals("Ordem de Producao", MyStringUtils.removeAccents("Ordem de Produção"));
 		assertEquals("Util", MyStringUtils.removeAccents("Útil"));
 		assertEquals("INUTIL", MyStringUtils.removeAccents("INÚTIL"));

@@ -17,6 +17,7 @@ package org.brunocvcunha.inutils4j.reflection;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -35,14 +36,14 @@ public class MyReflectionUtils {
   /**
    * Builds a instance of the class for a map containing the values, without specifying the handler for differences
    * 
-   * @param clazz
-   * @param values
-   * @return
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   * @throws IntrospectionException
-   * @throws IllegalArgumentException
-   * @throws InvocationTargetException
+   * @param clazz The class to build instance
+   * @param values The values map
+   * @return The instance
+   * @throws InstantiationException Error instantiating
+   * @throws IllegalAccessException Access error
+   * @throws IntrospectionException Introspection error
+   * @throws IllegalArgumentException Argument invalid
+   * @throws InvocationTargetException Invalid target
    */
   public static <T> T buildInstanceForMap(Class<T> clazz, Map<String, Object> values)
       throws InstantiationException, IllegalAccessException, IntrospectionException,
@@ -54,15 +55,15 @@ public class MyReflectionUtils {
   /**
    * Builds a instance of the class for a map containing the values
    * 
-   * @param clazz
-   * @param values
-   * @param differenceHandler
-   * @return
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   * @throws IntrospectionException
-   * @throws IllegalArgumentException
-   * @throws InvocationTargetException
+   * @param clazz Class to build
+   * @param values Values map
+   * @param differenceHandler The difference handler
+   * @return The created instance
+   * @throws InstantiationException Error instantiating
+   * @throws IllegalAccessException Access error
+   * @throws IntrospectionException Introspection error
+   * @throws IllegalArgumentException Argument invalid
+   * @throws InvocationTargetException Invalid target
    */
   public static <T> T buildInstanceForMap(Class<T> clazz, Map<String, Object> values, MyReflectionDifferenceHandler differenceHandler)
       throws InstantiationException, IllegalAccessException, IntrospectionException,
@@ -85,7 +86,7 @@ public class MyReflectionUtils {
       Method setter = null;
       try {
         setter = new PropertyDescriptor(key.replace('.', '_'), clazz).getWriteMethod();
-      } catch(Exception e) {
+      } catch (Exception e) {
         throw new IllegalArgumentException("Setter for field " + key + " was not found", e);
       }
 
@@ -105,8 +106,26 @@ public class MyReflectionUtils {
   }
 
 
+  /**
+   * Get the closest annotation for a method (inherit from class)
+   * 
+   * @param method method
+   * @param typeOfT type of annotation inspected
+   * @return annotation instance
+   */
+  public static <T extends Annotation> T getClosestAnnotation(Method method, Class<T> typeOfT) {
+    T annotation = method.getAnnotation(typeOfT);
+    if (annotation == null) {
 
-  
+      Class<?> clazzToIntrospect = method.getDeclaringClass();
+      while (annotation == null && clazzToIntrospect != null) {
+        annotation = clazzToIntrospect.getAnnotation(typeOfT);
+        clazzToIntrospect = clazzToIntrospect.getSuperclass();
+      }
+    }
+
+    return annotation;
+  }
   
   
 }

@@ -40,7 +40,6 @@ public class MyFileUtils {
 
     try {
       in = new FileInputStream(f1);
-
       out = new FileOutputStream(f2);
 
       byte[] buf = new byte[1024];

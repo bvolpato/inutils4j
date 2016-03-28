@@ -464,11 +464,11 @@ public class MyStringUtils {
   }
 
   /**
-   * Get content of a file as a Map<String, String>, using separator to split values
-   * @param file
-   * @param separator
+   * Get content of a file as a Map&lt;String, String&gt;, using separator to split values
+   * @param file File to get content
+   * @param separator The separator
    * @return The map with the values
-   * @throws IOException
+   * @throws IOException I/O Error
    */
   public static Map<String, String> getContentMap(File file, String separator) throws IOException {
     List<String> content = getContentLines(file);
@@ -484,6 +484,12 @@ public class MyStringUtils {
     return map;
   }
 
+  /**
+   * Save map to file
+   * @param map Map to save
+   * @param file File to save
+   * @throws IOException I/O error
+   */
   public static void saveContentMap(Map<String, String> map, File file) throws IOException {
 
     FileWriter out = new FileWriter(file);
@@ -646,6 +652,11 @@ public class MyStringUtils {
     return null;
   }
 
+  /**
+   * Returns content for the given URL
+   * @param stringUrl URL
+   * @return Response content
+   */
   public static String getContent(String stringUrl) {
     try {
       URL url = new URL(stringUrl);

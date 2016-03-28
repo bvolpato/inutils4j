@@ -38,7 +38,7 @@ public class MyZipUtils {
    * @param zipFile ZIP File to extract
    * @param outputFolder Output Folder
    * @return A Collection with the extracted files
-   * @throws IOException
+   * @throws IOException I/O Error
    */
   public static List<File> extract(File zipFile, File outputFolder) throws IOException {
     List<File> extracted = new ArrayList<File>();
@@ -87,8 +87,8 @@ public class MyZipUtils {
   /**
    * Checks if a Zip is valid navigating through the entries
    * 
-   * @param file
-   * @throws IOException
+   * @param file File to validate 
+   * @throws IOException I/O Error
    */
   public static void validateZip(File file) throws IOException {
     ZipInputStream zipInput = new ZipInputStream(new FileInputStream(file));
@@ -109,9 +109,9 @@ public class MyZipUtils {
   /**
    * Compress a directory into a zip file
    * 
-   * @param dir
-   * @param zipFile
-   * @throws IOException
+   * @param dir Directory
+   * @param zipFile ZIP file to create
+   * @throws IOException I/O Error
    */
   public static void compress(File dir, File zipFile) throws IOException {
 
@@ -128,10 +128,10 @@ public class MyZipUtils {
   /**
    * Recursively add files to a ZipOutputStream
    * 
-   * @param parent
-   * @param zout
-   * @param fileSource
-   * @throws IOException
+   * @param parent Parent file
+   * @param zout ZipOutputStream to append
+   * @param fileSource The file source
+   * @throws IOException I/O Error
    */
   public static void recursiveAddZip(File parent, ZipOutputStream zout, File fileSource)
       throws IOException {

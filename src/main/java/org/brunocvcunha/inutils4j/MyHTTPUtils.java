@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -33,15 +34,41 @@ import java.util.Map.Entry;
  */
 public class MyHTTPUtils {
 
+  /**
+   * Get content for URL only
+   * @param stringUrl URL to get content
+   * @return the content
+   * @throws IOException I/O error happened
+   */
   public static String getContent(String stringUrl) throws IOException {
     URL url = new URL(stringUrl);
     return MyStreamUtils.readContent(url.openStream());
   }
 
+  /**
+   * Get content for url/parameters
+   * @param stringUrl URL to get content
+   * @param parameters HTTP parameters to pass
+   * @return content the response content
+   * @throws IOException I/O error happened
+   */
   public static String getContent(String stringUrl, Map<String, String> parameters)
       throws IOException {
+    return getContent(stringUrl, parameters, null);
+  }
+  
+  /**
+   * Get content for url/parameters/proxy
+   * @param stringUrl the URL to get
+   * @param parameters HTTP parameters to pass
+   * @param proxy Proxy to use
+   * @return content the response content
+   * @throws IOException I/O error happened
+   */
+  public static String getContent(String stringUrl, Map<String, String> parameters, Proxy proxy)
+      throws IOException {
     URL url = new URL(stringUrl);
-    URLConnection conn = url.openConnection();
+    URLConnection conn = url.openConnection(proxy);
 
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
@@ -54,7 +81,15 @@ public class MyHTTPUtils {
 
 
 
-  
+  /**
+   * Post content / get response
+   * @param stringUrl URL to use
+   * @param parameters HTTP headers
+   * @param input Input data (payload)
+   * @param charset Charset in the input
+   * @return response HTTP response
+   * @throws IOException I/O error happened
+   */
   public static String getContentPost(String stringUrl, Map<String, String> parameters,
       String input, String charset) throws IOException {
     URL url = new URL(stringUrl);
@@ -81,10 +116,23 @@ public class MyHTTPUtils {
   }
 
 
+  /**
+   * Get the response headers for URL
+   * @param stringUrl URL to use
+   * @return headers HTTP Headers
+   * @throws IOException I/O error happened
+   */
   public static Map<String, List<String>> getResponseHeaders(String stringUrl) throws IOException {
     return getResponseHeaders(stringUrl, true);
   }
 
+  /**
+   * Get the response headers for URL, following redirects
+   * @param stringUrl URL to use
+   * @param followRedirects whether to follow redirects
+   * @return headers HTTP Headers
+   * @throws IOException I/O error happened
+   */
   public static Map<String, List<String>> getResponseHeaders(String stringUrl,
       boolean followRedirects) throws IOException {
     URL url = new URL(stringUrl);
@@ -93,6 +141,13 @@ public class MyHTTPUtils {
     return conn.getHeaderFields();
   }
 
+  /**
+   * Download a specified URL to a file
+   * @param stringUrl URL to use
+   * @param parameters HTTP Headers
+   * @param fileToSave File to save content
+   * @throws IOException I/O error happened
+   */
   public static void downloadUrl(String stringUrl, Map<String, String> parameters, File fileToSave) throws IOException {
     URL url = new URL(stringUrl);
     URLConnection conn = url.openConnection();
@@ -110,6 +165,12 @@ public class MyHTTPUtils {
     fos.close();
   }
 
+  /**
+   * Return the content from an URL in byte array
+   * @param stringUrl URL to get
+   * @return byte array
+   * @throws IOException I/O error happened
+   */
   public static byte[] getContentBytes(String stringUrl) throws IOException {
     URL url = new URL(stringUrl);
     byte[] data = MyStreamUtils.readContentBytes(url.openStream());
