@@ -4,7 +4,7 @@ inutils4j
 [![Apache License](http://img.shields.io/badge/license-ASL-blue.svg)](https://github.com/brunocvcunha/inutils4j/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/brunocvcunha/inutils4j.svg)](https://travis-ci.org/brunocvcunha/inutils4j)
 
-Repository that contains a lot of utilities for common problems in Java.
+:nut_and_bolt: Repository that contains a lot of utilities for common problems in Java.
 
 
 Download
@@ -15,12 +15,12 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
   <groupId>org.brunocvcunha.inutils4j</groupId>
   <artifactId>inutils4j</artifactId>
-  <version>1.0</version>
+  <version>0.3</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'org.brunocvcunha.inutils4j:inutils4j:1.0'
+compile 'org.brunocvcunha.inutils4j:inutils4j:0.3'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
