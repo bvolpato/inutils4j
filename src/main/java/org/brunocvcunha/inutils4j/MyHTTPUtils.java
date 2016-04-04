@@ -79,6 +79,9 @@ public class MyHTTPUtils {
       conn = url.openConnection();
     }
 
+    conn.setConnectTimeout(5000); //set connect timeout to 5 seconds
+    conn.setReadTimeout(60000); //set read timeout to 60 seconds
+
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
         conn.addRequestProperty(entry.getKey(), entry.getValue());

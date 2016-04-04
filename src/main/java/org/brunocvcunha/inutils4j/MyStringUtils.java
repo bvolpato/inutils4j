@@ -383,6 +383,11 @@ public class MyStringUtils {
     return getContentListSplit(getContent(file), delimiter);
   }
 
+  /**
+   * Split string content into list
+   * @param content String content
+   * @return list 
+   */
   public static List<String> asListLines(String content) {
     List<String> retorno = new ArrayList<String>();
     content = content.replace(CARRIAGE_RETURN, RETURN);
@@ -392,6 +397,25 @@ public class MyStringUtils {
     }
     return retorno;
   }
+  
+  /**
+   * Split string content into list, ignoring matches of the pattern
+   * @param content String content
+   * @param ignorePattern Pattern to ignore
+   * @return list 
+   */
+  public static List<String> asListLinesIgnore(String content, Pattern ignorePattern) {
+    List<String> retorno = new ArrayList<String>();
+    content = content.replace(CARRIAGE_RETURN, RETURN);
+    content = content.replace(RETURN, CARRIAGE_RETURN);
+    for (String str : content.split(CARRIAGE_RETURN)) {
+      if (!ignorePattern.matcher(str).matches()) {
+        retorno.add(str);
+      }
+    }
+    return retorno;
+  }
+
 
   public static List<String> getContentLines(File file, String codePage) throws IOException,
       UnsupportedEncodingException {
