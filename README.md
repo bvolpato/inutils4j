@@ -4,6 +4,7 @@ inutils4j
 [![Apache License](http://img.shields.io/badge/license-ASL-blue.svg)](https://github.com/brunocvcunha/inutils4j/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/brunocvcunha/inutils4j.svg)](https://travis-ci.org/brunocvcunha/inutils4j)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.brunocvcunha.inutils4j/inutils4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.brunocvcunha.inutils4j/inutils4j)
+[![Coverage Status](https://coveralls.io/repos/github/brunocvcunha/inutils4j/badge.svg?branch=master)](https://coveralls.io/github/brunocvcunha/inutils4j?branch=master)
 
 :nut_and_bolt: Repository that contains a lot of utilities for common problems in Java.
 
