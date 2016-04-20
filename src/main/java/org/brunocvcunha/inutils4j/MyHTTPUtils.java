@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -79,8 +81,8 @@ public class MyHTTPUtils {
       conn = url.openConnection();
     }
 
-    conn.setConnectTimeout(5000); //set connect timeout to 5 seconds
-    conn.setReadTimeout(60000); //set read timeout to 60 seconds
+    conn.setConnectTimeout(5000); // set connect timeout to 5 seconds
+    conn.setReadTimeout(60000); // set read timeout to 60 seconds
 
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
@@ -153,7 +155,12 @@ public class MyHTTPUtils {
     URL url = new URL(stringUrl);
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setInstanceFollowRedirects(followRedirects);
-    return conn.getHeaderFields();
+    
+    Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>(conn.getHeaderFields());
+    headers.put("X-Content", Arrays.asList(MyStreamUtils.readContent(conn.getInputStream())));
+    headers.put("X-URL", Arrays.asList(conn.getURL().toString()));
+    
+    return headers;
   }
 
   /**
@@ -196,4 +203,42 @@ public class MyHTTPUtils {
   }
 
 
+  /**
+   * Execute a HTTP request
+   * 
+   * @param stringUrl URL
+   * @param method Method to use
+   * @param parameters Params
+   * @param input Input / Payload
+   * @param charset Input Charset
+   * @return response
+   * @throws IOException
+   */
+  public static String httpRequest(String stringUrl, String method, Map<String, String> parameters,
+      String input, String charset) throws IOException {
+    URL url = new URL(stringUrl);
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setDoOutput(true);
+    conn.setRequestMethod(method);
+
+    if (parameters != null) {
+      for (Entry<String, String> entry : parameters.entrySet()) {
+        conn.addRequestProperty(entry.getKey(), entry.getValue());
+      }
+    }
+
+    if (input != null) {
+      OutputStream output = null;
+      try {
+        output = conn.getOutputStream();
+        output.write(input.getBytes(charset));
+      } finally {
+        if (output != null) {
+          output.close();
+        }
+      }
+    }
+
+    return MyStreamUtils.readContent(conn.getInputStream());
+  }
 }
