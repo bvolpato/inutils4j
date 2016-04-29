@@ -17,17 +17,43 @@ package org.brunocvcunha.inutils4j;
 
 import java.util.Random;
 
+/**
+ * Number Utilities
+ * @author Bruno Candido Volpato da Cunha
+ *
+ */
 public class MyNumberUtils {
 
   // https://stackoverflow.com/questions/363681/generating-random-integers-in-a-range-with-java
+  /**
+   * Returns an integer between interval
+   * @param min Minimum value
+   * @param max Maximum value
+   * @return int number
+   */
   public static int randomIntBetween(int min, int max) {
     Random rand = new Random();
     return rand.nextInt((max - min) + 1) + min;
   }
 
   // https://stackoverflow.com/questions/13725478/java-random-long-value-in-an-interval
+  /**
+   * Returns a long between interval
+   * @param min Minimum value
+   * @param max Maximum value
+   * @return long number
+   */
   public static long randomLongBetween(long min, long max) {
     Random rand = new Random();
     return min + (long) (rand.nextDouble() * (max - min));
   }
+  
+  /**
+   * Toss a Coin ;-)
+   * @return true = heads, false = tails
+   */
+  public static boolean tossCoin() {
+    return new Random().nextInt(2) == 1; 
+  }
+  
 }
