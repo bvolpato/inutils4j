@@ -17,12 +17,12 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
   <groupId>org.brunocvcunha.inutils4j</groupId>
   <artifactId>inutils4j</artifactId>
-  <version>0.3</version>
+  <version>0.4</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'org.brunocvcunha.inutils4j:inutils4j:0.3'
+compile 'org.brunocvcunha.inutils4j:inutils4j:0.4'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
