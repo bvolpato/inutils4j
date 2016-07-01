@@ -26,7 +26,7 @@
 	<description>Utilities API for Java</description>
 	<url>http://github.com/brunocvcunha/inutils4j</url>
 	<inceptionYear>2014</inceptionYear>
-	
+
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -132,6 +132,29 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.2.0</version>
+				<configuration>
+					<timestampFormat>${maven.build.timestamp.format}</timestampFormat>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.7.201606060606</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 
 		<pluginManagement>
