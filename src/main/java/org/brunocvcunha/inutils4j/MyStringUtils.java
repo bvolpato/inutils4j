@@ -793,14 +793,22 @@ public class MyStringUtils {
     return value + spaces(width - value.length());
   }
 
+  public static String leftpad(String value, int width) {
+    return prepad(value, width);
+  }
+  
   public static String prepad(String value, int width) {
+    return prepad(value, width, ' ');
+  }
+  
+  public static String prepad(String value, int width, char append) {
     if (width <= 0) {
       throw new IllegalArgumentException("Pad width must be greater than zero.");
     }
     if (value.length() >= width) {
       return value;
     }
-    return spaces(width - value.length()) + value;
+    return fill(append, width - value.length()) + value;
   }
 
   public static String spaces(int count) {
