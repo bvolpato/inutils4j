@@ -174,8 +174,9 @@ public class MyHTTPUtils {
   public static void downloadUrl(String stringUrl, Map<String, String> parameters, File fileToSave)
       throws IOException {
     URL url = new URL(stringUrl);
-    URLConnection conn = url.openConnection();
-
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setFollowRedirects(true);
+    
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
         conn.addRequestProperty(entry.getKey(), entry.getValue());
@@ -183,6 +184,31 @@ public class MyHTTPUtils {
     }
 
 
+    boolean redirect = false;
+
+    // normally, 3xx is redirect
+    int status = conn.getResponseCode();
+    if (status != HttpURLConnection.HTTP_OK) {
+        if (status == HttpURLConnection.HTTP_MOVED_TEMP
+            || status == HttpURLConnection.HTTP_MOVED_PERM
+                || status == HttpURLConnection.HTTP_SEE_OTHER)
+        redirect = true;
+    }
+
+    if (redirect) {
+
+        // get redirect url from "location" header field
+        String newUrl = conn.getHeaderField("Location");
+
+        // get the cookie if need, for login
+        String cookies = conn.getHeaderField("Set-Cookie");
+
+        // open the new connnection again
+        conn = (HttpURLConnection) new URL(newUrl).openConnection();
+        conn.setRequestProperty("Cookie", cookies);
+
+    }
+    
     byte[] data = MyStreamUtils.readContentBytes(conn.getInputStream());
     FileOutputStream fos = new FileOutputStream(fileToSave);
     fos.write(data);
