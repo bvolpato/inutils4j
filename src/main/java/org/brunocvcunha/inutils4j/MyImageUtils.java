@@ -272,15 +272,15 @@ public class MyImageUtils {
   }
 
   /**
-   * @param actualHeight
-   * @param totalWidth
-   * @return
+   * @param height Height
+   * @param width Width
+   * @return Image
    */
-  protected static BufferedImage getWhiteImage(int actualHeight, int totalWidth) {
-    BufferedImage output = new BufferedImage(totalWidth, actualHeight, BufferedImage.TYPE_INT_ARGB);
+  protected static BufferedImage getWhiteImage(int height, int width) {
+    BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     Graphics2D bg = output.createGraphics();
     bg.setBackground(Color.WHITE);
-    bg.clearRect(0, 0, totalWidth, actualHeight);
+    bg.clearRect(0, 0, width, height);
     return output;
   }
 
