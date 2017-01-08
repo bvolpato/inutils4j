@@ -21,6 +21,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -177,6 +179,110 @@ public class MyImageUtils {
     return resizedImage;
   }
 
+  /**
+   * Join images
+   * @param images Images to join
+   * @param lines Total of lines
+   * @param height Image height to scale
+   * @param minHeight Minimum height of image.
+   * @param scale If should scale images to fit
+   * @return Joined image
+   */
+  public static BufferedImage joinImages(List<BufferedImage> images, int lines, int height, int minHeight, boolean scale) {
+
+      // Array of input images.
+      List<BufferedImage> input = new ArrayList<BufferedImage>();
+
+      int actualHeight = height;
+
+      // if not scale, start from 1, so will use the max height of images, not more than that.
+      if (!scale) {
+        actualHeight = 1;
+      }
+
+      for (BufferedImage imageToJoin : images) {
+        try {
+          BufferedImage img = MyImageUtils.trim(imageToJoin);
+
+          if (scale) {
+            actualHeight = Integer.min(actualHeight, img.getHeight());
+          } else {
+            actualHeight = Integer.max(actualHeight, img.getHeight());
+          }
+          input.add(img);
+
+        } catch (Exception x) {
+          x.printStackTrace();
+        }
+      }
+
+      // minimum height for the posts is 480
+      if (scale && actualHeight < minHeight 
+          && input.size() > 0) {
+        actualHeight = minHeight;
+      }
+
+      int totalWidth = 0;
+      List<BufferedImage> fixedInput = new ArrayList<BufferedImage>();
+      for (BufferedImage img : input) {
+        BufferedImage newImg = img;
+        if (scale && img.getHeight() > actualHeight) {
+          newImg = MyImageUtils.resizeToHeight(img, actualHeight);
+        }
+
+        fixedInput.add(newImg);
+
+        totalWidth += newImg.getWidth();
+      }
+
+      // Create the output image and fill with white.
+      
+      BufferedImage output = getWhiteImage(actualHeight * lines, totalWidth / lines);
+      drawImages(lines, scale, input, actualHeight, output.getGraphics());
+      
+      return output;
+  }
+
+  /**
+   * @param lines Lines to draw
+   * @param scale If images should be scaled
+   * @param input Images to draw
+   * @param actualHeight Each image height
+   * @param output Graphics to write
+   */
+  protected static void drawImages(int lines, boolean scale, List<BufferedImage> input,
+      int actualHeight, Graphics output) {
+
+    int imagePerLine = input.size() / lines;
+    int image = 0;
+    
+    for (int row = 0; row < lines; row++) {
+      int currentWidth = 0;
+
+      for (int col = 0; col < imagePerLine; col++) {
+        BufferedImage img = input.get(image++);
+        if (scale && img.getHeight() > actualHeight) {
+          img = MyImageUtils.resizeToHeight(img, actualHeight);
+        }
+ 
+        output.drawImage(img, currentWidth, actualHeight * row, null);
+        currentWidth += img.getWidth();
+      }
+    }
+  }
+
+  /**
+   * @param actualHeight
+   * @param totalWidth
+   * @return
+   */
+  protected static BufferedImage getWhiteImage(int actualHeight, int totalWidth) {
+    BufferedImage output = new BufferedImage(totalWidth, actualHeight, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D bg = output.createGraphics();
+    bg.setBackground(Color.WHITE);
+    bg.clearRect(0, 0, totalWidth, actualHeight);
+    return output;
+  }
 
 
 }
