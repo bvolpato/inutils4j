@@ -27,7 +27,7 @@ compile 'org.brunocvcunha.inutils4j:inutils4j:0.4'
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
-Inutils4j requires at minimum Java 6.
+Inutils4j requires at minimum Java 7.
 
 
  [1]: https://search.maven.org/remote_content?g=org.brunocvcunha.inutils4j&a=inutils4j&v=LATEST
