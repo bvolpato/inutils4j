@@ -37,6 +37,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.Character.UnicodeBlock;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -54,6 +55,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -682,9 +684,27 @@ public class MyStringUtils {
    * @return Response content
    */
   public static String getContent(String stringUrl) {
+    return getContent(stringUrl, null);
+  }
+  
+  /**
+   * Returns content for the given URL
+   * @param stringUrl URL
+   * @param requestProperties Properties
+   * @return Response content
+   */
+  public static String getContent(String stringUrl, Map<String, String> requestProperties) {
     try {
       URL url = new URL(stringUrl);
-      return MyStreamUtils.readContent(url.openStream());
+      URLConnection conn = url.openConnection();
+      
+      if (requestProperties != null) {
+        for (Entry<String, String> entry : requestProperties.entrySet()) {
+          conn.setRequestProperty(entry.getKey(), entry.getValue());
+        }
+      }
+      
+      return MyStreamUtils.readContent(conn.getInputStream());
     } catch (Exception e) {
       e.printStackTrace();
     }
