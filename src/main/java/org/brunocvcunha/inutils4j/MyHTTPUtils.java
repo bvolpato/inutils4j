@@ -159,6 +159,7 @@ public class MyHTTPUtils {
     Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>(conn.getHeaderFields());
     headers.put("X-Content", Arrays.asList(MyStreamUtils.readContent(conn.getInputStream())));
     headers.put("X-URL", Arrays.asList(conn.getURL().toString()));
+    headers.put("X-Status", Arrays.asList(String.valueOf(conn.getResponseCode())));
     
     return headers;
   }
