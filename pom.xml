@@ -19,7 +19,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.brunocvcunha.inutils4j</groupId>
 	<artifactId>inutils4j</artifactId>
-	<version>0.5</version>
+	<version>0.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Inutils4j</name>
 	<description>Utilities API for Java</description>
