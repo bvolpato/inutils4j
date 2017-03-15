@@ -5,3 +5,7 @@ install: mvn clean install
 
 after_success:
   - mvn clean test jacoco:report coveralls:report
+
+addons:
+    code_climate:
+        repo_token: 58997e96cfcad5e24af2b7fcc4afcadc71d09ba59a755dd26390ba024f8ac9bb

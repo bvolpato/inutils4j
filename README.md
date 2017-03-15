@@ -9,6 +9,27 @@ inutils4j
 :nut_and_bolt: Repository that contains a lot of utilities for common problems in Java.
 
 
+
+Toolbelt
+--------
+- MyArrUtils: array functions
+- MyClasspathUtils: classpath operations
+- MyConcurrencyUtils: parallelization made easy
+- MyDateUtils: date calculation and date display
+- MyFileUtils: files operations and file scanners
+- MyHTTPUtils: HTTP operations in an easy way
+- MyImageUtils: operations on images
+- MyListUtils: add functionality to List interface
+- MyMapUtils: add functionality to Map interface
+- MyNumberUtils: useful numeric/math operations
+- MyObjectUtils: operations and nice object display 
+- MyStreamUtils: simple and effective I/O
+- MyStringUtils: dozens of string operations
+- MySystemUtils: get OS information easily
+- MyTextRegex: some common regex operations
+- MyVideoUtils: video information tool
+- MyZipUtils: easy zip extraction/compression 
+
 Download
 --------
 
@@ -17,12 +38,12 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
   <groupId>org.brunocvcunha.inutils4j</groupId>
   <artifactId>inutils4j</artifactId>
-  <version>0.4</version>
+  <version>0.5</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'org.brunocvcunha.inutils4j:inutils4j:0.4'
+compile 'org.brunocvcunha.inutils4j:inutils4j:0.5'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
