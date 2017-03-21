@@ -278,7 +278,7 @@ public class MyImageUtils {
    * @param width Width
    * @return Image
    */
-  protected static BufferedImage getWhiteImage(int height, int width) {
+  public static BufferedImage getWhiteImage(int height, int width) {
     BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     Graphics2D bg = output.createGraphics();
     bg.setBackground(Color.WHITE);

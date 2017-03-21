@@ -28,6 +28,11 @@ import java.util.TreeMap;
  */
 public class MyMapUtils {
 
+  /**
+   * Ranks a map based on integer values
+   * @param inputMap Input
+   * @return The ranked map
+   */
   public static <K> Map<K, Integer> rankMapOnIntegerValue(Map<K, Integer> inputMap) {
     Map<K, Integer> newMap = new TreeMap<K, Integer>(new IntegerValueComparator(inputMap));
     newMap.putAll(inputMap);
@@ -35,7 +40,6 @@ public class MyMapUtils {
     Map<K, Integer> linkedMap = new LinkedHashMap<K, Integer>(newMap);
     return linkedMap;
   }
-
 
 }
 
@@ -47,11 +51,15 @@ class IntegerValueComparator implements Comparator<Object> {
     this.base = base;
   }
 
+  /* (non-Javadoc)
+   * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+   */
+  @Override
   public int compare(Object a, Object b) {
     if (base.get(a) >= base.get(b)) {
       return -1;
-    } else {
-      return 1;
     }
+    
+    return 1;
   }
 }

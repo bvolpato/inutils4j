@@ -35,13 +35,15 @@ public class MyConcurrencyUtils {
    * @param runnable Runnable to run
    * @param timeout Timeout number
    * @param timeUnit Time unit
+   * @throws InterruptedException 
+   * @throws TimeoutException 
    * @throws Exception Error
    */
-  public static void runWithTimeout(final Runnable runnable, long timeout, TimeUnit timeUnit)
-      throws Exception {
+  public static void runWithTimeout(final Runnable runnable, long timeout, TimeUnit timeUnit) throws InterruptedException, TimeoutException {
     runWithTimeout(new Callable<Object>() {
       @Override
       public Object call() throws Exception {
+          // run thread synchronously
         runnable.run();
         return null;
       }
@@ -52,10 +54,11 @@ public class MyConcurrencyUtils {
    * @param callable Callable to run
    * @param timeout Timeout number
    * @param timeUnit Time unit
+   * @throws InterruptedException 
+   * @throws TimeoutException 
    * @throws Exception Error
    */
-  public static <T> T runWithTimeout(Callable<T> callable, long timeout, TimeUnit timeUnit)
-      throws Exception {
+  public static <T> T runWithTimeout(Callable<T> callable, long timeout, TimeUnit timeUnit) throws InterruptedException, TimeoutException {
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     final Future<T> future = executor.submit(callable);
     executor.shutdown();
@@ -72,7 +75,7 @@ public class MyConcurrencyUtils {
       if (t instanceof Error) {
         throw (Error) t;
       } else if (t instanceof Exception) {
-        throw (Exception) t;
+        throw new RuntimeException(t);
       } else {
         throw new IllegalStateException(t);
       }

@@ -15,10 +15,12 @@
  */
 package org.brunocvcunha.inutils4j;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * List utilities
@@ -27,14 +29,25 @@ import java.util.TreeSet;
  */
 public class MyListUtils {
 
-  public <T> Set<T> getSet(Collection<T> collection) {
-    Set<T> set = new TreeSet<T>();
+  /**
+   * Convert Collection to Set
+   * @param collection Collection
+   * @return Set
+   */
+  public static <T> Set<T> getSet(Collection<T> collection) {
+    Set<T> set = new LinkedHashSet<T>();
     set.addAll(collection);
 
     return set;
   }
 
-  public <T> String join(Collection<T> col, String delim) {
+  /**
+   * Joins a collection in a string using a delimiter
+   * @param col Collection
+   * @param delim Delimiter
+   * @return String
+   */
+  public static <T> String join(Collection<T> col, String delim) {
     StringBuilder sb = new StringBuilder();
     Iterator<T> iter = col.iterator();
     if (iter.hasNext())
@@ -46,4 +59,24 @@ public class MyListUtils {
     return sb.toString();
   }
 
+  /**
+   * List chop - create lists of lists 
+   * @param list Input
+   * @param length the maximum length of each sub-list 
+   * @return a List of Lists for the given type (T)
+   */
+  public static <T> List<List<T>> chop(List<T> list, int length) {
+      int useLength = length;
+      if (useLength == 0) {
+        useLength = list.size();
+      }
+      
+      List<List<T>> parts = new ArrayList<>();
+      final int listSize = list.size();
+      for (int i = 0; i < listSize; i += useLength) {
+          parts.add(new ArrayList<>(
+                  list.subList(i, Math.min(listSize, i + useLength))));
+      }
+      return parts;
+  }
 }
