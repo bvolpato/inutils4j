@@ -311,4 +311,16 @@ public class MyStringUtilsTest {
 		assertFalse(MyStringUtils.hasInvalidChar("Bruno Candido Volpato da Cunha", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@. "));
 		
 	}
+	
+	@Test
+	public void testTabularData() {
+		String[] labels = {"Name", "Class", "Hours", "Sales", "Rate", "Weekly Pay" };
+		String[][] data = {
+			{"James Hogan", "Salaried", "", "", "", "$2,300.00*"},
+			{"Holy Moly", "Hourly", "45", "", "$10.95", "$2,000.00"},
+			{"Marry Butler", "Commissioned", "", "$10,000.000", "", "$2,000.00"},
+		};
+		
+		System.out.println(MyStringUtils.getTabularData(labels, data, 5));
+	}
 }

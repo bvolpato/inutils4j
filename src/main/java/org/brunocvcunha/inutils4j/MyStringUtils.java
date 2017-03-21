@@ -684,6 +684,13 @@ public class MyStringUtils {
    * @return Response content
    */
   public static String getContent(String stringUrl) {
+    if (stringUrl.equalsIgnoreCase("clipboard")) {
+      try {
+        return getFromClipboard();
+      } catch (Exception e) {
+        //it's ok.
+      }
+    }
     return getContent(stringUrl, null);
   }
   
@@ -1684,4 +1691,53 @@ public class MyStringUtils {
         .getData(DataFlavor.stringFlavor);
   }
 
+  /**
+   * Return tabular data
+   * @param labels Labels array
+   * @param data Data bidimensional array
+   * @param padding Total space between fields
+   * @return String
+   */
+  public static String getTabularData(String[] labels, String[][] data, int padding) {
+    int[] size = new int[labels.length];
+    
+    for (int i = 0; i < labels.length; i++) {
+      size[i] = labels[i].length() + padding;
+    }
+    
+    for (String[] row : data) {
+      for (int i = 0; i < labels.length; i++) {
+        if (row[i].length() >= size[i]) {
+          size[i] = row[i].length() + padding;
+        }
+      }
+    }
+    
+    StringBuffer tabularData = new StringBuffer();
+    
+    for (int i = 0; i < labels.length; i++) {
+      tabularData.append(labels[i]);
+      tabularData.append(fill(' ', size[i] - labels[i].length()));
+    }
+    
+    tabularData.append("\n");
+    
+    for (int i = 0; i < labels.length; i++) {
+      tabularData.append(fill('=', size[i] - 1)).append(" ");
+    }
+    
+    tabularData.append("\n");
+    
+    
+    for (String[] row : data) {
+      for (int i = 0; i < labels.length; i++) {
+        tabularData.append(row[i]);
+        tabularData.append(fill(' ', size[i] - row[i].length()));
+      }
+      
+      tabularData.append("\n");
+    }
+    
+    return tabularData.toString();
+  }
 }
