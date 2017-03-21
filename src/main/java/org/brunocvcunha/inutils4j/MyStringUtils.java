@@ -61,6 +61,7 @@ import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
 import javax.swing.JFileChooser;
 
@@ -711,7 +712,12 @@ public class MyStringUtils {
         }
       }
       
-      return MyStreamUtils.readContent(conn.getInputStream());
+      InputStream is = conn.getInputStream();
+      if ("gzip".equals(conn.getContentEncoding())) {
+         is = new GZIPInputStream(is);
+      }
+
+      return MyStreamUtils.readContent(is);
     } catch (Exception e) {
       e.printStackTrace();
     }
