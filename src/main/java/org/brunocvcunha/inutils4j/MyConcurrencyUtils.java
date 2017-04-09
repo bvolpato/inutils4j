@@ -37,7 +37,6 @@ public class MyConcurrencyUtils {
    * @param timeUnit Time unit
    * @throws InterruptedException 
    * @throws TimeoutException 
-   * @throws Exception Error
    */
   public static void runWithTimeout(final Runnable runnable, long timeout, TimeUnit timeUnit) throws InterruptedException, TimeoutException {
     runWithTimeout(new Callable<Object>() {
@@ -56,7 +55,6 @@ public class MyConcurrencyUtils {
    * @param timeUnit Time unit
    * @throws InterruptedException 
    * @throws TimeoutException 
-   * @throws Exception Error
    */
   public static <T> T runWithTimeout(Callable<T> callable, long timeout, TimeUnit timeUnit) throws InterruptedException, TimeoutException {
     final ExecutorService executor = Executors.newSingleThreadExecutor();
