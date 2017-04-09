@@ -131,7 +131,7 @@ public class MyStringUtilsTest {
 	@Test
 	public void testChars() {
 		assertEquals("Teste", MyStringUtils.capitalize("teste"));
-		assertEquals("NÃ£o", MyStringUtils.capitalize("nÃ£o"));
+		assertEquals("Não", MyStringUtils.capitalize("não"));
 		assertEquals("Teste de validação", MyStringUtils.capitalize("teste de validação"));
 
 		assertEquals("          ", MyStringUtils.spaces(10));
