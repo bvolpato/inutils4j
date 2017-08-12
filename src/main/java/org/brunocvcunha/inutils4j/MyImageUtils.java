@@ -58,7 +58,7 @@ public class MyImageUtils {
     int xStart = getTrimmedXStart(img);
     int yStart = getTrimmedYStart(img);
 
-    BufferedImage newImg = new BufferedImage(width - xStart, height - yStart, BufferedImage.TYPE_INT_RGB);
+    BufferedImage newImg = new BufferedImage(width - xStart, height - yStart, BufferedImage.TYPE_INT_ARGB);
     Graphics g = newImg.createGraphics();
     g.drawImage(img, 0 - xStart, 0 - yStart, null);
 
@@ -178,6 +178,31 @@ public class MyImageUtils {
     g.drawImage(originalImage, 0, 0, newWidth, heightOut, null);
     g.dispose();
 
+    return resizedImage;
+  }
+  
+  /**
+   * Resizes an image to the specified width, changing width in the same proportion
+   * @param originalImage Image in memory
+   * @param widthOut The width to resize 
+   * @return New Image in memory
+   */
+  public static BufferedImage resizeToWidth(BufferedImage originalImage, int widthOut) {
+    
+    int width = originalImage.getWidth();
+    
+    int height = originalImage.getHeight();
+    
+    int widthPercent = (widthOut * 100) / width;
+    
+    int newHeight = (height * widthPercent) / 100;
+    
+    BufferedImage resizedImage =
+        new BufferedImage(widthOut, newHeight, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g = resizedImage.createGraphics();
+    g.drawImage(originalImage, 0, 0, widthOut, newHeight, null);
+    g.dispose();
+    
     return resizedImage;
   }
 

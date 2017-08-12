@@ -87,29 +87,29 @@ public class MyStringUtilsTest {
 		assertEquals(2, StringUtils.countMatches("estee xteste tteste", "teste"));
 	}
 
-    @Test
-    public void testJapanese() {
-        assertTrue(MyStringUtils.hasJapaneseCharacter("日本語ワード"));
-    }
-    @Test
-    public void testNonJapanese() {
-        assertFalse(MyStringUtils.hasJapaneseCharacter("japanese word"));
-        assertFalse(MyStringUtils.hasJapaneseCharacter("my name is inutils"));
-    }
+	@Test
+	public void testJapanese() {
+		assertTrue(MyStringUtils.hasJapaneseCharacter("日本語ワード"));
+	}
+	@Test
+	public void testNonJapanese() {
+		assertFalse(MyStringUtils.hasJapaneseCharacter("japanese word"));
+		assertFalse(MyStringUtils.hasJapaneseCharacter("my name is inutils"));
+	}
 
-       
-    @Test
-    public void testChinese() {
-        assertTrue(MyStringUtils.hasChineseCharacter("中國字"));
-        assertTrue(MyStringUtils.hasChineseCharacter("我的字是沒用的"));
-    }
-    @Test
-    public void testNonChinese() {
-        assertFalse(MyStringUtils.hasChineseCharacter("chinese word"));
-        assertFalse(MyStringUtils.hasChineseCharacter("my name is inutils"));
-    }
+	   
+	@Test
+	public void testChinese() {
+		assertTrue(MyStringUtils.hasChineseCharacter("中國字"));
+		assertTrue(MyStringUtils.hasChineseCharacter("我的字是沒用的"));
+	}
+	@Test
+	public void testNonChinese() {
+		assertFalse(MyStringUtils.hasChineseCharacter("chinese word"));
+		assertFalse(MyStringUtils.hasChineseCharacter("my name is inutils"));
+	}
 
-       
+	   
 	@Test
 	public void testInsertSubstring() {
 		assertEquals("BRUNO", MyStringUtils.insertSubString("BRNO", "U", 2));
@@ -289,6 +289,12 @@ public class MyStringUtilsTest {
 		assertEquals(MyStringUtils.truncate("Bruno Candido Volpato da Cunha", 5), "Bruno");
 		assertEquals(MyStringUtils.truncate("Bruno Candido Volpato da Cunha", 6), "Bruno ");
 		assertEquals(MyStringUtils.truncate("LOL", 6), "LOL");
+	}
+	
+	@Test
+	public void testHTMLEntities() {
+	  assertEquals("A&ccedil;&atilde;o", MyStringUtils.replaceWithHtmlEntities("Ação"));
+	  assertEquals("Ação", MyStringUtils.replaceHtmlEntities("A&ccedil;&atilde;o"));
 	}
 
 	@Test

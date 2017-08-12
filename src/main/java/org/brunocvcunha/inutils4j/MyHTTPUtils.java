@@ -108,9 +108,10 @@ public class MyHTTPUtils {
   public static String getContentPost(String stringUrl, Map<String, String> parameters,
       String input, String charset) throws IOException {
     URL url = new URL(stringUrl);
-    URLConnection conn = url.openConnection();
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setDoOutput(true);
-
+    conn.setFollowRedirects(false);
+    
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
         conn.addRequestProperty(entry.getKey(), entry.getValue());
