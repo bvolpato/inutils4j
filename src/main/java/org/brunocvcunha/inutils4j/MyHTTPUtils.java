@@ -106,11 +106,26 @@ public class MyHTTPUtils {
    * @throws IOException I/O error happened
    */
   public static String getContentPost(String stringUrl, Map<String, String> parameters,
-      String input, String charset) throws IOException {
+          String input, String charset) throws IOException {
+      return getContentPost(stringUrl, parameters, input, charset, false);
+  }
+  /**
+   * Post content / get response
+   * 
+   * @param stringUrl URL to use
+   * @param parameters HTTP headers
+   * @param input Input data (payload)
+   * @param charset Charset in the input
+   * @param followRedirects Follow Redirects
+   * @return response HTTP response
+   * @throws IOException I/O error happened
+   */
+  public static String getContentPost(String stringUrl, Map<String, String> parameters,
+      String input, String charset, boolean followRedirects) throws IOException {
     URL url = new URL(stringUrl);
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setDoOutput(true);
-    conn.setFollowRedirects(false);
+    conn.setFollowRedirects(followRedirects);
     
     if (parameters != null) {
       for (Entry<String, String> entry : parameters.entrySet()) {
