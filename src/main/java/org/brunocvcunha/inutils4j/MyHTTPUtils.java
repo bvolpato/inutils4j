@@ -18,8 +18,10 @@ package org.brunocvcunha.inutils4j;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
@@ -28,6 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.zip.GZIPInputStream;
 
 /**
  * HTTP (In)utilities.
@@ -44,9 +47,31 @@ public class MyHTTPUtils {
    * @throws IOException I/O error happened
    */
   public static String getContent(String stringUrl) throws IOException {
-    URL url = new URL(stringUrl);
-    return MyStreamUtils.readContent(url.openStream());
+    InputStream stream = getContentStream(stringUrl);
+    return MyStreamUtils.readContent(stream);
   }
+
+  /**
+   * Get stream for URL only
+   * 
+   * @param stringUrl URL to get content
+   * @return the input stream 
+   * @throws IOException I/O error happened
+   */
+    public static InputStream getContentStream(String stringUrl) throws MalformedURLException, IOException {
+        URL url = new URL(stringUrl);
+        
+        URLConnection urlConnection = url.openConnection();
+        
+        
+        InputStream stream;
+        if (urlConnection.getContentEncoding().equals("gzip")) {
+            stream = new GZIPInputStream(urlConnection.getInputStream());
+        } else {
+            stream = urlConnection.getInputStream();
+        }
+        return stream;
+    }
 
   /**
    * Get content for url/parameters
