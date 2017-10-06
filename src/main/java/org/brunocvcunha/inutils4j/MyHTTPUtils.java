@@ -65,7 +65,7 @@ public class MyHTTPUtils {
         
         
         InputStream stream;
-        if (urlConnection.getContentEncoding().equals("gzip")) {
+        if (urlConnection.getContentEncoding() != null && urlConnection.getContentEncoding().equals("gzip")) {
             stream = new GZIPInputStream(urlConnection.getInputStream());
         } else {
             stream = urlConnection.getInputStream();
