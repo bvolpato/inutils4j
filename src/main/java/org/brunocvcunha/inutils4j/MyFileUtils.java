@@ -290,4 +290,17 @@ public class MyFileUtils {
     MyStringUtils.saveToFile(0, sort, file.getAbsolutePath());
   }
 
+  public static void touch(File file) throws IOException{
+    long timestamp = System.currentTimeMillis();
+    touch(file, timestamp);
+  }
+
+  public static void touch(File file, long timestamp) throws IOException{
+    if (!file.exists()) {
+       new FileOutputStream(file).close();
+    }
+    
+    file.setLastModified(timestamp);
+  }
+
 }
