@@ -63,14 +63,12 @@ public class MyHTTPUtils {
         
         URLConnection urlConnection = url.openConnection();
         
-        
-        InputStream stream;
-        if (urlConnection.getContentEncoding() != null && urlConnection.getContentEncoding().equals("gzip")) {
-            stream = new GZIPInputStream(urlConnection.getInputStream());
-        } else {
-            stream = urlConnection.getInputStream();
+        InputStream is = urlConnection.getInputStream();
+        if ("gzip".equals(urlConnection.getContentEncoding())) {
+           is = new GZIPInputStream(is);
         }
-        return stream;
+
+        return is;
     }
 
   /**
@@ -115,7 +113,12 @@ public class MyHTTPUtils {
       }
     }
 
-    return MyStreamUtils.readContent(conn.getInputStream());
+    InputStream is = conn.getInputStream();
+    if ("gzip".equals(conn.getContentEncoding())) {
+       is = new GZIPInputStream(is);
+    }
+    
+    return MyStreamUtils.readContent(is);
   }
 
 
@@ -197,8 +200,13 @@ public class MyHTTPUtils {
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setInstanceFollowRedirects(followRedirects);
     
+    InputStream is = conn.getInputStream();
+    if ("gzip".equals(conn.getContentEncoding())) {
+       is = new GZIPInputStream(is);
+    }
+
     Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>(conn.getHeaderFields());
-    headers.put("X-Content", Arrays.asList(MyStreamUtils.readContent(conn.getInputStream())));
+    headers.put("X-Content", Arrays.asList(MyStreamUtils.readContent(is)));
     headers.put("X-URL", Arrays.asList(conn.getURL().toString()));
     headers.put("X-Status", Arrays.asList(String.valueOf(conn.getResponseCode())));
     
