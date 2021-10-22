@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -113,6 +114,20 @@ public class MyHTTPUtils {
       }
     }
 
+    if (conn instanceof HttpURLConnection) {
+        HttpURLConnection httpURLConnection = (HttpURLConnection) conn;
+        int errorCode = httpURLConnection.getResponseCode();
+        InputStream err = httpURLConnection.getErrorStream();
+        if (err != null) {
+            if ("gzip".equals(conn.getContentEncoding())) {
+                err = new GZIPInputStream(err);
+            }
+            
+            throw new IOException("Error fetching " + stringUrl + ": " + MyStreamUtils.readContent(err));
+        }
+        
+    }
+    
     InputStream is = conn.getInputStream();
     if ("gzip".equals(conn.getContentEncoding())) {
        is = new GZIPInputStream(is);
@@ -125,6 +140,21 @@ public class MyHTTPUtils {
 
   /**
    * Post content / get response
+   *
+   * @param stringUrl URL to use
+   * @param parameters HTTP headers
+   * @param input Input data (payload)
+   * @param charset Charset in the input
+   * @return response HTTP response
+   * @throws IOException I/O error happened
+   */
+  public static String getContentPost(String stringUrl, Map<String, String> parameters,
+                                      String input, String charset) throws IOException {
+    return getContentPost(stringUrl, parameters, input, Charset.forName(charset));
+  }
+
+  /**
+   * Post content / get response
    * 
    * @param stringUrl URL to use
    * @param parameters HTTP headers
@@ -134,7 +164,7 @@ public class MyHTTPUtils {
    * @throws IOException I/O error happened
    */
   public static String getContentPost(String stringUrl, Map<String, String> parameters,
-          String input, String charset) throws IOException {
+          String input, Charset charset) throws IOException {
       return getContentPost(stringUrl, parameters, input, charset, false);
   }
   /**
@@ -149,7 +179,7 @@ public class MyHTTPUtils {
    * @throws IOException I/O error happened
    */
   public static String getContentPost(String stringUrl, Map<String, String> parameters,
-      String input, String charset, boolean followRedirects) throws IOException {
+                                      String input, Charset charset, boolean followRedirects) throws IOException {
     URL url = new URL(stringUrl);
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setDoOutput(true);
