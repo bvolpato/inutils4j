@@ -36,6 +36,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.Character.UnicodeBlock;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
@@ -1012,6 +1013,19 @@ public class MyStringUtils {
         }
       }
       
+      if (conn instanceof HttpURLConnection) {
+          HttpURLConnection httpURLConnection = (HttpURLConnection) conn;
+          int errorCode = httpURLConnection.getResponseCode();
+          InputStream err = httpURLConnection.getErrorStream();
+          if (err != null) {
+              if ("gzip".equals(conn.getContentEncoding())) {
+                  err = new GZIPInputStream(err);
+              }
+              
+              throw new IOException("Error fetching " + stringUrl + ": " + MyStreamUtils.readContent(err));
+          }
+          
+      }
       InputStream is = conn.getInputStream();
       if ("gzip".equals(conn.getContentEncoding())) {
          is = new GZIPInputStream(is);
