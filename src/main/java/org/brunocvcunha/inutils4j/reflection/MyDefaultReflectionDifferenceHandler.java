@@ -18,7 +18,7 @@ package org.brunocvcunha.inutils4j.reflection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Reflection Difference Handling
