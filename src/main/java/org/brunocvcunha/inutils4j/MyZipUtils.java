@@ -56,7 +56,11 @@ public class MyZipUtils {
     while (zipEntry != null) {
 
       String neFileNameName = zipEntry.getName();
-      File newFile = new File(outputFolder + File.separator + neFileNameName);
+      File newFile = new File(outputFolder, neFileNameName).getCanonicalFile();
+
+      if (!newFile.getPath().startsWith(outputFolder.getCanonicalPath())) {
+        throw new IOException("Bad zip entry: " + neFileNameName);
+      }
 
       newFile.getParentFile().mkdirs();
 
